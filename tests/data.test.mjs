@@ -39,6 +39,12 @@ test('chords parse', () => {
   }
 });
 
+test('the band can comp every lick chord', () => {
+  for (const l of LICKS) for (const c of l.chords.flat()) for (const f of ['shell', 'four']) {
+    assert.ok(voicingFor(c, f), `${l.id}: no ${f} voicing for ${c}`);
+  }
+});
+
 test('voicings spell their chords', () => {
   assert.deepEqual(checkShapes(), []);
 });
