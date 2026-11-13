@@ -6,9 +6,11 @@ import { chordAt } from './data/licks.js';
 const SP = 13;            // string spacing
 const TOP = 26;           // room for chord names + technique marks
 const LAB = 30;           // label rows under the staff
-const ROW = TOP + SP * 5 + LAB + 18;
+const FG = 16;            // finger-number row (when shown)
 
-export function renderTab(notes, tl, { bars, width = 360, labels = 'degrees', keyPc = 0 } = {}) {
+export function renderTab(notes, tl, { bars, width = 360, labels = 'degrees', keyPc = 0, fingers = null } = {}) {
+  const fg = fingers ? FG : 0;
+  const ROW = TOP + SP * 5 + LAB + 18 + fg;
   // fast lines (more than 8 notes in a bar) get twice the room so the fret numbers don't collide
   const perBar = {}; notes.forEach(n => { if (!n.rest) { const k = Math.floor(n.b / 4 + 1e-9); perBar[k] = (perBar[k] || 0) + 1; } });
   const dense = Math.max(0, ...Object.values(perBar)) > 8;
@@ -30,7 +32,7 @@ export function renderTab(notes, tl, { bars, width = 360, labels = 'degrees', ke
     // beat counts
     for (let k = 0; k < n; k++) for (let e = 0; e < 8; e++) {
       const b = (r * per + k) * 4 + e / 2;
-      o += `<text class="tab-count${e % 2 ? ' off' : ''}" x="${xOf(b)}" y="${sy(6) + LAB + 12}">${e % 2 ? '&' : e / 2 + 1}</text>`;
+      o += `<text class="tab-count${e % 2 ? ' off' : ''}" x="${xOf(b)}" y="${sy(6) + fg + LAB + 12}">${e % 2 ? '&' : e / 2 + 1}</text>`;
     }
     o += `<line class="tab-head" data-row="${r}" x1="-10" x2="-10" y1="${sy(1) - 8}" y2="${sy(6) + 8}"/>`;
     o += '</g>';
@@ -70,8 +72,14 @@ export function renderTab(notes, tl, { bars, width = 360, labels = 'degrees', ke
         const name = midiName(m, keyPc).replace(/-?\d+$/, '').replace('b', '♭').replace('#', '♯');
         const t = labels === 'degrees' ? (degreeLabel(m, chord) || name) : name;
         const kind = labels === 'degrees' ? degreeKind(m, chord) : 'none';
-        o += `<text class="tab-lab k-${kind}" x="${x}" y="${sy(6) + 17 + k * 11}">${t}</text>`;
+        o += `<text class="tab-lab k-${kind}" x="${x}" y="${sy(6) + fg + 17 + k * 11}">${t}</text>`;
       });
+    }
+    // fretting fingers, high string first (brass = the hand moves to a new position here)
+    const fk = fingers?.[i];
+    if (fk) {
+      const t = sorted.map(q => fk.k[n.p.indexOf(q)]).join('');
+      o += `<text class="tab-fing${fk.shift ? ' shift' : ''}" x="${x}" y="${sy(6) + 17}">${t}</text>`;
     }
     o += '</g>';
   });

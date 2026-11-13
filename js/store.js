@@ -6,7 +6,7 @@ const base = () => ({
   licks: {},          // id -> { fav, best (bpm), plays }
   metro: { bpm: 120, beats: 4, sub: 'swing', swing: 0.62, accent: 'twofour', sound: 'wood', speed: { on: false, step: 4, every: 4, max: 200 }, gap: { on: false, play: 2, mute: 2 } },
   tuner: { mode: 'mic', tuning: 'std', a4: 440, timbre: 'pluck' },
-  player: { labels: 'degrees', backing: true, countIn: true, loop: true, call: false, speedUp: false },
+  player: { labels: 'degrees', backing: true, countIn: true, loop: true, call: false, speedUp: false, fingers: true },
   jam: { prog: '251', key: null, comp: 'four', bass: 'walk', drums: 'ride', fam: 'shell', bpm: 140 },
   chords: { root: 0, fam: 'shell' },
   lastTab: 'practice',

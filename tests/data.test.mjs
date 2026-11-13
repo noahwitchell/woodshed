@@ -6,6 +6,7 @@ import { LICKS, parseNotes, chordTimeline, chordAt } from '../js/data/licks.js';
 import { TECH, RHYTHM } from '../js/data/drills.js';
 import { PROGS } from '../js/data/progressions.js';
 import { checkShapes, voicingFor } from '../js/data/chords.js';
+import { fingerNotes } from '../js/fingering.js';
 import { fretMidi, midiName, parseChord, degreeLabel } from '../js/theory.js';
 
 const all = [...LICKS, ...TECH];
@@ -53,5 +54,16 @@ test('rhythm drills point at real things', () => {
   for (const r of RHYTHM) {
     assert.ok(PROGS.find(p => p.id === r.prog), r.id);
     assert.equal(r.grid.length, 8);
+  }
+});
+
+test('every lick and drill can be fingered (pins are playable)', () => {
+  for (const l of all) {
+    const n = parseNotes(l.notes), f = fingerNotes(n);
+    n.forEach((x, i) => {
+      if (x.rest) return;
+      assert.ok(f[i] && f[i].k.length === x.p.length, `${l.id}: no fingering for note ${i}`);
+      if (x.pin) x.pin.forEach((k, j) => assert.ok(!k || f[i].k[j] === k, `${l.id}: pin ignored on note ${i}`));
+    });
   }
 });

@@ -196,6 +196,8 @@ svg.tab text { text-anchor: middle; font-family: inherit; }
 .tab-fret { fill: var(--text); font-size: 11px; font-weight: 750; }
 .tab-tech { fill: var(--dim); font-size: 9px; font-style: italic; font-weight: 700; }
 .tab-bend { fill: none; stroke: var(--dim); stroke-width: 1.2; }
+.tab-fing { fill: #c9ccd4; font-size: 10px; font-weight: 750; text-anchor: middle; }
+.tab-fing.shift { fill: var(--accent); }
 .tab-lab { fill: var(--dim); font-size: 9.5px; font-weight: 700; }
 .tab-lab.k-tone { fill: var(--tone); } .tab-lab.k-tension { fill: var(--tension); } .tab-lab.k-color { fill: var(--color); }
 .tab-note.on .tab-box { fill: var(--accent); }

@@ -22,3 +22,7 @@
   'woodshed-loops': 'meta' + 'blobs' stores, audio files never go in localStorage). Loop audio goes straight to
   the destination through an L/R matrix (stereo/left/right/mono/no centre), then a Boost gain (0–24 dB, Auto =
   loudest peak to -1 dBFS, default for newly opened tracks) and a limiter; not through the guitar FX bus.
+- Fingerings: `js/fingering.js` picks fretting fingers automatically (DP over hand position; costs for shifts,
+  same-finger hops, bends, slides, hammer/pull direction). Pin a finger in the lick data with `@` ("3:7:.5@1",
+  double stop "5:3+3:5:1@13") when the solver disagrees with the tip text or the idiom. `node tests/fingers.mjs
+  [id|hard]` prints them; the data test checks every pin is playable. Tips that name fingers must match.

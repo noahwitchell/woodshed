@@ -3,6 +3,8 @@
 //   "3:6:.5h"       hammered on (h), pulled off (p), slid into (s), bent up a half (b) / whole (b2) step
 //   "3:6+2:8:1"     double stop (two strings at once)
 //   "r:1"           rest
+//   "3:7:.5@1"      pin the fretting finger (1 index … 4 pinky); "3:6+2:8:1@24" one digit per part.
+//                   Unpinned notes are fingered automatically (js/fingering.js).
 // Beats: 1 = quarter, .5 = 8th, 1/3 = triplet 8th. Bars are 4/4. Chords: one entry per bar,
 // or an array for two chords in a bar.
 
@@ -82,7 +84,7 @@ export const LICKS = [
   {
     id: 'octaves', title: 'Octave melody', cat: 'Classics', level: 2, bpm: 120, key: 'C',
     chords: ['C6', 'C6'],
-    notes: '5:3+3:5:1 5:6+3:8:.5 5:7+3:9:.5s 4:5+2:8:1 4:7+2:10:.5 4:5+2:8:.5 5:7+3:9:1 5:3+3:5:3',
+    notes: '5:3+3:5:1@13 5:6+3:8:.5@13 5:7+3:9:.5s@13 4:5+2:8:1@14 4:7+2:10:.5@14 4:5+2:8:.5@14 5:7+3:9:1@13 5:3+3:5:3@13',
     about: 'Wes Montgomery-style octaves: the same note on two strings, two strings apart. Your first finger fretting the low note mutes the string between them, so you can strum all three.',
     tip: 'Pick with your thumb for a warm, round tone. The shape gets one fret wider when the top note moves to the B string.',
   },
@@ -96,7 +98,7 @@ export const LICKS = [
   {
     id: 'tritones', title: 'Sliding tritones', cat: 'Turnarounds & endings', level: 2, bpm: 110, key: 'A',
     chords: ['A7', 'E7'],
-    notes: '3:6+2:8:1 3:5+2:7:1 3:4+2:6:1 3:3+2:5:1 3:2+2:4:1 3:1+2:3:3',
+    notes: '3:6+2:8:1@13 3:5+2:7:1@13 3:4+2:6:1@13 3:3+2:5:1@13 3:2+2:4:1@13 3:1+2:3:3@13',
     about: 'The 3rd and ♭7 of A7 (C♯ and G) slide down a fret at a time until they become the 3rd and ♭7 of E7 (G♯ and D). It is the classic way to turn around the end of a blues.',
     tip: 'Keep the same two-finger shape the whole way down. Add the open A string on beat 1 for a bigger sound.',
   },
@@ -195,15 +197,15 @@ export const LICKS = [
   {
     id: 'chrom-cascade', title: 'Chromatic cascade', cat: 'Gypsy jazz', level: 4, bpm: 170, key: 'D minor',
     chords: ['A7b9', 'Dm6'],
-    notes: '1:15:1/3 1:14:1/3 1:13:1/3 1:12:1/3 1:11:1/3 1:10:1/3 2:14:1/3 2:13:1/3 2:12:1/3 2:11:1/3 2:10:1/3 3:13:1/3 2:10:.5 2:6:.5 3:7:.5 4:9:.5 4:7:.5 5:8:.5 5:5:1',
+    notes: '1:15:1/3@4 1:14:1/3@3 1:13:1/3@2 1:12:1/3@3 1:11:1/3@2 1:10:1/3@1 2:14:1/3@4 2:13:1/3@3 2:12:1/3@2 2:11:1/3@2 2:10:1/3@1 3:13:1/3@4 2:10:.5 2:6:.5 3:7:.5 4:9:.5 4:7:.5 5:8:.5 5:5:1',
     about: 'Twelve chromatic notes straight down in triplets. Because each triplet is three half steps, the beats land on G, E, C♯ and B♭, the notes of A7♭9. Then down a Dm6 arpeggio.',
-    tip: 'Fingers 4-3-2-1 on each string, then shift. Keep the shifts silent and the picking even.',
+    tip: 'Each triplet spans three frets: finger it 4-3-2, shift down, 3-2-1, then the same on string 2. Shift on the beat, where the accent hides it, and keep the picking even.',
   },
   // ---- more gypsy jazz ------------------------------------------------------------------
   {
     id: 'sliding-sixths', title: 'Sliding sixths', cat: 'Gypsy jazz', level: 2, bpm: 140, key: 'D minor',
     chords: ['A7', 'Dm6'],
-    notes: '3:9+1:9:1.5 3:8+1:8:.5 3:7+1:7:.5 3:6+1:6:1.5 3:7+1:7:1 3:10+1:10:1s 3:7+1:7:2',
+    notes: '3:9+1:9:1.5@23 3:8+1:8:.5@23 3:7+1:7:.5@23 3:6+1:6:1.5@23 3:7+1:7:1@23 3:10+1:10:1s@23 3:7+1:7:2@23',
     about: 'Two notes a sixth apart (strings 3 and 1), sliding down a fret at a time from E and C♯ (the 5th and 3rd of A7) to D and B, the root and 6th of Dm6. Sweet, vocal, and very Django.',
     tip: 'Pluck the two notes with pick and middle finger (hybrid picking), or pick string 3 and let the pick graze string 2 muted under your finger.',
   },
@@ -226,7 +228,7 @@ export const LICKS = [
     chords: [['Em7b5', 'A7b9'], 'Dm6'],
     notes: '5:7:.5 4:5:.5 4:8:.5 3:7:.5 2:5:.5 2:8:.5 1:6:.5 1:9:.5 1:10:1.5 1:7:.5 1:5:.5 2:6:.5 3:7:1',
     about: 'Straight up Em7♭5, keep climbing through A7♭9 (E G B♭ C♯, a diminished shape), and the top C♯ steps up to D. Then down Dm6 with its bright 6th (B).',
-    tip: 'All in 5th position: reach up with your little finger for the C♯ and D. Get the whole climb under one hand before you push the tempo.',
+    tip: 'All in 5th position except the top: shift up two frets so fingers 3 and 4 take the C♯ and D, then come straight back down. Get the whole climb under one hand before you push the tempo.',
   },
   {
     id: 'six-nine', title: 'Major 6/9 arpeggio', cat: 'Gypsy jazz', level: 3, bpm: 180, key: 'G',
@@ -245,7 +247,7 @@ export const LICKS = [
   {
     id: 'octaves-dm', title: 'Django octaves', cat: 'Gypsy jazz', level: 3, bpm: 140, key: 'D minor',
     chords: ['Dm6', 'A7'],
-    notes: '5:5+3:7:.5 5:8+3:10:.5 4:7+2:10:1 4:9+2:12:.5 4:7+2:10:1.5 4:5+2:8:.5 5:8+3:10:.5 5:7+3:9:1 5:4+3:6:.5 5:7+3:9:1.5',
+    notes: '5:5+3:7:.5@13 5:8+3:10:.5@13 4:7+2:10:1@14 4:9+2:12:.5@14 4:7+2:10:1.5@14 4:5+2:8:.5@14 5:8+3:10:.5@13 5:7+3:9:1@13 5:4+3:6:.5@13 5:7+3:9:1.5@13',
     about: 'Django played melodies in octaves to cut through the band. Up Dm6 (D F A B), then down A7 to its 3rd (C♯) and back to E.',
     tip: 'Fret the low note with your 1st finger and the high note with your 3rd or 4th. Strum through the muted string in between.',
   },
@@ -299,14 +301,17 @@ const num = s => (s.includes('/') ? s.split('/').reduce((a, b) => +a / +b) : +s)
 export function parseNotes(str) {
   const out = []; let b = 0;
   for (const tok of str.trim().split(/\s+/)) {
-    const i = tok.lastIndexOf(':');
-    const head = tok.slice(0, i), tail = tok.slice(i + 1);
+    const at = tok.indexOf('@');
+    const pin = at >= 0 ? [...tok.slice(at + 1)].map(Number) : null;
+    const t = at >= 0 ? tok.slice(0, at) : tok;
+    const i = t.lastIndexOf(':');
+    const head = t.slice(0, i), tail = t.slice(i + 1);
     const m = /^([\d.\/]+)(h|p|s|b2|b)?$/.exec(tail);
     if (!m) throw new Error('bad token ' + tok);
     const d = num(m[1]), tech = m[2] || null;
     if (head === 'r') { out.push({ b, d, rest: true, p: [] }); b += d; continue; }
     const p = head.split('+').map(x => { const [s, f] = x.split(':').map(Number); return { s, f }; });
-    out.push({ b, d, tech, p });
+    out.push(pin ? { b, d, tech, p, pin } : { b, d, tech, p });
     b += d;
   }
   return out;

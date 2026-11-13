@@ -7,6 +7,7 @@ import { LICKS, CATS, parseNotes, chordTimeline, shiftNotes } from '../data/lick
 import { TECH, RHYTHM } from '../data/drills.js';
 import { PROGS, COMPS, progById } from '../data/progressions.js';
 import { renderTab, paintTab, unswing } from '../tab.js';
+import { fingerNotes } from '../fingering.js';
 import { compEvents, bassEvents, drumEvents, clickEvents, lickEvents } from '../backing.js';
 import { transposeChord, parseChord, pcName, prettyChord, NAME_PC } from '../theory.js';
 import { voicingFor } from '../data/chords.js';
@@ -156,6 +157,8 @@ function build() {
   const { item } = cur;
   const st = lickState(item.id);
   cur.notes = shiftNotes(parseNotes(item.notes), cur.shift);
+  // pinned fingers move with the key, except on notes that became open strings
+  const fingers = fingerNotes(cur.notes.map(x => (x.pin && x.p.some(q => q.f === 0) ? (({ pin, ...y }) => y)(x) : x)));
   const chords = chordsFor();
   cur.tl = chordTimeline(chords);
   const keyPc = (keyPcOf(item) + cur.shift + 120) % 12;
@@ -163,7 +166,7 @@ function build() {
   const tabBox = h('div', { class: 'tab-box' });
   const drawTab = () => {
     const w = Math.min(900, (playerEl.clientWidth || 360) - 8);
-    cur.view = renderTab(cur.notes, cur.tl, { bars: item.chords.length, width: Math.max(300, w), labels: P().labels, keyPc });
+    cur.view = renderTab(cur.notes, cur.tl, { bars: item.chords.length, width: Math.max(300, w), labels: P().labels, keyPc, fingers: P().fingers ? fingers : null });
     tabBox.innerHTML = cur.view.svg;
   };
   const banner = h('div', { class: 'banner' });
@@ -190,7 +193,8 @@ function build() {
     h('p', { class: 'about' }, item.about),
     h('div', { class: 'tab-wrap' }, banner, tabBox),
     h('div', { class: 'row gap wrap center' },
-      seg([['frets', 'Frets'], ['notes', 'Notes'], ['degrees', 'Degrees']], P().labels, v => { P().labels = v; save(); drawTab(); }, 'small')),
+      seg([['frets', 'Frets'], ['notes', 'Notes'], ['degrees', 'Degrees']], P().labels, v => { P().labels = v; save(); drawTab(); }, 'small'),
+      toggle('Fingers', P().fingers, v => { P().fingers = v; save(); drawTab(); })),
     h('div', { class: 'row center gap' }, playBtn),
     h('div', { class: 'row center gap wrap' }, bpmStep, keyCtl),
     h('div', { class: 'tog-grid' },
@@ -203,6 +207,7 @@ function build() {
     h('p', { class: 'dim small center' }, '“Your turn” plays the lick, then gives you the same bars to play it back over the band.'),
     h('div', { class: 'tip' }, h('b', {}, 'How to practise it: '), item.tip),
     h('div', { class: 'row center gap wrap' }, nailed, bestEl),
+    h('p', { class: 'dim small center' }, 'Fingers under the tab: 1 index, 2 middle, 3 ring, 4 little, 0 open string. A brass number means your hand moves to a new position on that note.'),
     h('p', { class: 'dim small center' }, 'Degrees show each note’s job in the chord: green = chord tones (R 3 5 7), blue = colour tones (9, 11, 6), amber = blue notes and chromatic passing notes.'),
   );
   drawTab();

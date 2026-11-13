@@ -41,10 +41,10 @@ export const TECH = [
   },
   {
     id: 'octave-drill', title: 'Octave shapes', level: 2, bpm: 90, chords: ['C6', 'F6', 'C6', 'G7'],
-    notes: '5:3+3:5:1 5:5+3:7:1 5:7+3:9:1 4:5+2:8:1 ' +
-           '6:1+4:3:1 6:3+4:5:1 6:5+4:7:1 5:3+3:5:1 ' +
-           '5:3+3:5:1 5:7+3:9:1 4:5+2:8:1 4:7+2:10:1 ' +
-           '6:3+4:5:1 5:2+3:4:1 5:5+3:7:1 4:5+2:8:1',
+    notes: '5:3+3:5:1@13 5:5+3:7:1@13 5:7+3:9:1@13 4:5+2:8:1@14 ' +
+           '6:1+4:3:1@13 6:3+4:5:1@13 6:5+4:7:1@13 5:3+3:5:1@13 ' +
+           '5:3+3:5:1@13 5:7+3:9:1@13 4:5+2:8:1@14 4:7+2:10:1@14 ' +
+           '6:3+4:5:1@13 5:2+3:4:1@13 5:5+3:7:1@13 4:5+2:8:1@14',
     about: 'Melody in octaves through the three shapes: strings 6+4, 5+3 (two frets apart) and 4+2 (three frets apart, because of the B string).',
     tip: 'Strum through the muted middle string. Only the two octave notes should sound.',
   },
