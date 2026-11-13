@@ -20,4 +20,5 @@
   cached, scheduled back-to-back on the audio clock with 40 ms crossfades; pitch shift = playbackRate with the
   stretch compensating), `js/stretch-worker.js` (WSOLA, pitch-keeping), `js/loopdb.js` (IndexedDB
   'woodshed-loops': 'meta' + 'blobs' stores, audio files never go in localStorage). Loop audio goes straight to
-  the destination through an L/R matrix (stereo/left/right/mono/no centre), not through the guitar FX bus.
+  the destination through an L/R matrix (stereo/left/right/mono/no centre), then a Boost gain (0–24 dB, Auto =
+  loudest peak to -1 dBFS, default for newly opened tracks) and a limiter; not through the guitar FX bus.

@@ -127,6 +127,7 @@ async function openTrack(meta, buf) {
   L.loop = s.loop ?? false; L.speed = s.speed ?? 1; L.semis = s.semis ?? 0; L.cents = s.cents ?? 0;
   L.gap = s.gap ?? 0; L.trainer = s.trainer ?? false; L.cursor = s.cursor ?? 0; L.passes = 0;
   E.setChannels(s.chan || 'stereo');
+  E.setBoost(s.boost ?? E.autoBoost(pk));
   zoom = L.loop && (L.a > 0 || L.b < dur) ? 'loop' : 'all';
   meta.opened = Date.now(); DB.putMeta(meta).catch(() => {});
   paintPlayer();
@@ -137,7 +138,7 @@ function saveState() {
   if (!track) return;
   clearTimeout(saveT);
   saveT = setTimeout(() => {
-    track.state = { a: L.a, b: L.b, loop: L.loop, speed: L.speed, semis: L.semis, cents: L.cents, gap: L.gap, chan: L.chan, trainer: L.trainer, cursor: L.cursor };
+    track.state = { a: L.a, b: L.b, loop: L.loop, speed: L.speed, semis: L.semis, cents: L.cents, gap: L.gap, chan: L.chan, boost: L.boost, trainer: L.trainer, cursor: L.cursor };
     DB.putMeta(track).catch(() => {});
   }, 300);
 }
@@ -287,6 +288,7 @@ function paintPlayer() {
   ui.speed = stepper({ value: Math.round(L.speed * 100), min: 25, max: 150, step: 5, fmt: v => `${v}%`, onChange: v => { L.speed = v / 100; saveState(); relaunchSoon(); paintInfo(); } });
   const quick = seg([[50, '50%'], [70, '70%'], [85, '85%'], [100, '100%']], Math.round(L.speed * 100), v => { L.speed = v / 100; ui.speed.set(+v); saveState(); relaunchSoon(60); paintInfo(); }, 'small');
   ui.quick = quick;
+  ui.boost = stepper({ value: L.boost, min: 0, max: 24, step: 1, fmt: v => `+${v} dB`, onChange: v => { E.setBoost(v); saveState(); } });
   const semis = stepper({ value: L.semis, min: -12, max: 12, step: 1, fmt: v => (v > 0 ? `+${v}` : `${v}`) + ' semis', onChange: v => { L.semis = v; saveState(); relaunchSoon(); } });
   const cents = stepper({ value: L.cents, min: -50, max: 50, step: 5, fmt: v => (v > 0 ? `+${v}` : `${v}`) + ' cents', onChange: v => { L.cents = v; saveState(); relaunchSoon(); } });
 
@@ -307,6 +309,10 @@ function paintPlayer() {
       ui.play,
       ui.loopTog),
     h('div', { class: 'center' }, ui.pos, h('br'), ui.info),
+    h('div', { class: 'card' },
+      h('div', { class: 'field' }, h('label', {}, 'Boost'), ui.boost,
+        h('button', { class: 'btn small-btn', onclick: () => { const v = E.autoBoost(pk); E.setBoost(v); ui.boost.set(v); saveState(); } }, 'Auto')),
+      h('p', { class: 'hint small' }, 'Turns up quiet recordings past what the phone volume can do. Auto brings the loudest part up to full; a limiter stops it distorting.')),
     h('div', { class: 'card inout' },
       h('div', { class: 'io-row' }, h('label', {}, 'In'), ui.inS, h('button', { class: 'btn small-btn', onclick: setIn }, 'Set')),
       h('div', { class: 'io-row' }, h('label', {}, 'Out'), ui.outS, h('button', { class: 'btn small-btn', onclick: setOut }, 'Set')),

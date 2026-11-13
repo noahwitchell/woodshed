@@ -13,7 +13,7 @@ const EDGE = 0.004;   // tiny fade at loop edges so the cut doesn't click
 export const L = {
   buf: null,                       // AudioBuffer (always 2 channels)
   a: 0, b: 0, loop: true, cursor: 0,
-  speed: 1, semis: 0, cents: 0, gap: 0, chan: 'stereo',
+  speed: 1, semis: 0, cents: 0, gap: 0, chan: 'stereo', boost: 0,   // boost in dB
   trainer: false, trainerStep: 0.05,
   playing: false, passes: 0,
   onState: () => {},               // UI callback (play/stop, pass count, speed changes)
@@ -85,15 +85,29 @@ function output() {
   // g0: L->L, g1: R->L, g2: L->R, g3: R->R
   split.connect(g[0], 0); split.connect(g[1], 1); split.connect(g[2], 0); split.connect(g[3], 1);
   g[0].connect(merge, 0, 0); g[1].connect(merge, 0, 0); g[2].connect(merge, 0, 1); g[3].connect(merge, 0, 1);
-  merge.connect(ctx.destination);
-  route = { ctx, input, g };
-  setChannels(L.chan);
+  // boost for quiet recordings, then a brick-wall-ish limiter so a boosted track can't clip
+  const boost = ctx.createGain(), lim = ctx.createDynamicsCompressor();
+  lim.threshold.value = -2; lim.knee.value = 0; lim.ratio.value = 20; lim.attack.value = 0.002; lim.release.value = 0.12;
+  merge.connect(boost); boost.connect(lim); lim.connect(ctx.destination);
+  route = { ctx, input, g, boost };
+  setChannels(L.chan); setBoost(L.boost);
   return route;
 }
 export function setChannels(mode) {
   L.chan = mode;
   if (!route) return;
   MATRIX[mode].forEach((v, i) => route.g[i].gain.setTargetAtTime(v, route.ctx.currentTime, 0.01));
+}
+
+export function setBoost(db) {
+  L.boost = db;
+  if (route) route.boost.gain.setTargetAtTime(Math.pow(10, db / 20), route.ctx.currentTime, 0.02);
+}
+// dB that brings the loudest moment of the track up to about -1 dBFS (0 if it's already loud)
+export function autoBoost(pk) {
+  let m = 0; for (const v of pk) if (v > m) m = v;
+  if (m <= 1e-5) return 0;
+  return Math.max(0, Math.min(24, Math.round(-20 * Math.log10(m) - 1)));
 }
 
 // ---- scheduling --------------------------------------------------------------------------
