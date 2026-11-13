@@ -6,6 +6,7 @@ A pocket practice room for swing and jazz guitar. Plain HTML + JS modules, no bu
 - **Licks**: 14 licks (The Lick, bebop runs, enclosures, Charlie Christian / T-Bone style swing blues, Django-style arpeggios, ii–V–I lines, turnarounds), 5 technique drills and 5 rhythm drills (four to the bar, Charleston, la pompe, push, shuffle). Tab with frets / note names / chord degrees, a band to play over, loop, count-in, "Your turn" call and response, +5 BPM per loop, move to any key, log your best tempo.
 - **Chords**: shell, four-note and colour voicings in any key with chord-tone labels; Jam mode loops 8 progressions (ii–V–I, minor ii–V–i, turnaround, jazz blues, swing blues, rhythm changes, gypsy minor swing, dominant cycle) with comping guitar, walking bass and ride or brushes.
 - **Tempo**: metronome with adjustable swing, 2 & 4 accents, tap tempo, speed trainer and gap trainer.
+- **Loop**: open a song from Files or record one with the mic, mark In and Out, and loop the section. Slow it down without changing pitch (25–150%), speed up 5% each loop, gap between repeats, transpose or fine-tune, hear left / right / mono / no centre, and save named sections. Files stay on the phone.
 - **Tune**: microphone tuner with needle, or tune by ear to plucked / steady reference notes. Alternate tunings, adjustable A4.
 
 ```bash

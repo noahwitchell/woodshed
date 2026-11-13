@@ -9,12 +9,14 @@ import * as licks from './views/licks.js';
 import * as chords from './views/chords.js';
 import * as metro from './views/metronome.js';
 import * as tuner from './views/tuner.js';
+import * as loop from './views/loop.js';
 
 const TABS = [
   { id: 'practice', label: 'Today', title: 'Today', mod: practice },
   { id: 'licks', label: 'Licks', title: 'Licks & drills', mod: licks },
   { id: 'chords', label: 'Chords', title: 'Chords & jam', mod: chords },
   { id: 'metro', label: 'Tempo', title: 'Metronome', mod: metro },
+  { id: 'loop', label: 'Loop', title: 'Loop practice', mod: loop },
   { id: 'tuner', label: 'Tune', title: 'Tuner', mod: tuner },
 ];
 
@@ -48,7 +50,7 @@ go(S.lastTab || 'practice');
 // Practice time: count every second something is sounding or listening.
 setInterval(() => {
   if (document.hidden) return;
-  if (T.playing || micActive() || A.droneOn() || tuner.busy()) {
+  if (T.playing || micActive() || A.droneOn() || tuner.busy() || loop.busy()) {
     today().sec++; save();
     if (active?.id === 'practice') practice.tickTime();
   }
