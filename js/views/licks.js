@@ -21,7 +21,7 @@ const OWNER = 'licks';
 const keyPcOf = item => NAME_PC[(item.key || item.chords.flat().find(c => c !== '—') || 'C').split(' ')[0].replace(/m.*/, '')] ?? 0;
 
 // ---- list -------------------------------------------------------------------------
-function levelDots(n) { return h('span', { class: 'lvl', title: `Level ${n}` }, ...[1, 2, 3].map(k => h('i', { class: k <= n ? 'on' : '' }))); }
+function levelDots(n) { return h('span', { class: 'lvl', title: `Level ${n}` }, ...[1, 2, 3, 4].map(k => h('i', { class: k <= n ? 'on' : '' }))); }
 
 function card(item, kind) {
   const st = lickState(item.id);
@@ -38,9 +38,10 @@ function card(item, kind) {
 function paintList() {
   listEl.replaceChildren();
   if (section === 'licks') {
-    const cats = [['all', 'All'], ['fav', '★ Saved'], ...CATS.map(c => [c, c])];
+    const cats = [['all', 'All'], ['fav', '★ Saved'], ['hard', 'Hard'], ...CATS.map(c => [c, c])];
     listEl.append(chips(cats, cat, v => { cat = v; paintList(); }));
-    const items = LICKS.filter(l => cat === 'all' || (cat === 'fav' ? lickState(l.id).fav : l.cat === cat));
+    const items = LICKS.filter(l => cat === 'all' || (cat === 'fav' ? lickState(l.id).fav : cat === 'hard' ? l.level >= 3 : l.cat === cat));
+    if (cat === 'hard') items.sort((a, b) => b.level - a.level);
     listEl.append(h('div', { class: 'cards' }, ...items.map(l => card(l, 'lick'))));
     if (!items.length) listEl.append(h('p', { class: 'hint' }, 'Nothing saved yet. Tap ☆ on a lick to save it here.'));
   } else if (section === 'tech') {

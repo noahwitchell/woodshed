@@ -9,7 +9,10 @@ const LAB = 30;           // label rows under the staff
 const ROW = TOP + SP * 5 + LAB + 18;
 
 export function renderTab(notes, tl, { bars, width = 360, labels = 'degrees', keyPc = 0 } = {}) {
-  const per = width >= 640 ? 4 : 2;
+  // fast lines (more than 8 notes in a bar) get twice the room so the fret numbers don't collide
+  const perBar = {}; notes.forEach(n => { if (!n.rest) { const k = Math.floor(n.b / 4 + 1e-9); perBar[k] = (perBar[k] || 0) + 1; } });
+  const dense = Math.max(0, ...Object.values(perBar)) > 8;
+  const per = (width >= 640 ? 4 : 2) / (dense ? 2 : 1);
   const rows = Math.ceil(bars / per);
   const L = 18, R = 6;
   const bw = (width - L - R) / per;
