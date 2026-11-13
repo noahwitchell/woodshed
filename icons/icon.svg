@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#16181f"/>
+  <!-- archtop f-hole, flat brass -->
+  <g fill="#f0a83a">
+    <circle cx="318" cy="118" r="34"/>
+    <circle cx="194" cy="394" r="34"/>
+    <path d="M300 140 C 250 175, 236 215, 252 256 C 268 297, 262 338, 212 372 L 194 352 C 236 324, 240 294, 226 260 C 208 214, 222 166, 288 118 Z"/>
+    <rect x="198" y="242" width="86" height="24" rx="12" transform="rotate(-8 241 254)"/>
+  </g>
+</svg>
