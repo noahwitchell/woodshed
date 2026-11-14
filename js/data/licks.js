@@ -474,6 +474,160 @@ export const LICKS = [
     about: 'How a slow blues says goodbye: run down the pentatonic scale, then slide a chord down a half step from B♭ to A. That last “one fret down” move is the ending everyone knows.',
     tip: 'Let the last chord ring out and add vibrato to it. Then stop: the band will follow you.',
   },
+  // ---- batch 2 ----------------------------------------------------------------------------
+  {
+    id: 'srv-fills', title: 'Rhythm fills in E and A', cat: 'SRV', level: 2, bpm: 100, key: 'E', groove: 'shuffle',
+    chords: ['E7', 'A7'],
+    notes: '6:0:1 3:1+2:0:.5 3:2+2:3:.5 3:1+2:0:.5 4:2:.5 3:0:.5 3:1:.5h 5:0:1 2:2+1:0:.5 2:3+1:2:.5 2:2+1:0:.5 3:2:.5 3:0:.5 4:2:.5',
+    about: 'Stevie rarely just strummed: between chords his fingers kept decorating them, the way Hendrix did. Hit the bass note, then rock a little double stop up to the 4th and ♭7 and back, and finish with a quick line. The same move works on every chord of the blues.',
+    tip: 'Keep the chord shape mostly held and let one or two fingers do the moving. It should still sound like rhythm guitar, just busier.',
+  },
+  {
+    id: 'srv-q-and-a', title: 'Question and answer', cat: 'SRV', level: 2, bpm: 60, key: 'E', groove: 'slow',
+    chords: ['E7', 'A7'],
+    notes: 'r:1 2:15:1b2 2:15:1/3u 2:12:1/3 1:12:1/3 1:12:1v r:1 4:12:1/3 4:14:1/3 3:12:1/3q 4:14:1/3 4:12:1/3 5:14:1/3 5:12:1v',
+    about: 'Blues phrasing is like talking: a high, crying “question” in one bar, then a low, settled “answer” in the next. Notice the rest at the start of each bar. Stevie left room for the band to breathe even when he was playing hard.',
+    tip: 'Don’t fill the rests. Count them out loud if you have to. The space is what makes the next phrase land.',
+  },
+  {
+    id: 'srv-hammer-climb', title: 'Hammer-on climb', cat: 'SRV', level: 3, bpm: 100, key: 'A', groove: 'shuffle',
+    chords: ['A7', 'A7'],
+    notes: '6:5:1/3 6:8:1/3h 5:5:1/3 5:7:1/3h 4:5:1/3 4:7:1/3h 3:5:1/3 3:7:1/3h 2:5:1/3 2:8:1/3h 1:5:1/3 1:8:1/3h 1:8:.5b2 1:8:.5u 1:5:.5 2:8:.5 2:5:2v',
+    about: 'Up the A minor pentatonic in triplets: pick one note, hammer the next, move to the next string. Half the notes are hammered, so the run sounds smooth and fast with only a light picking hand.',
+    tip: 'Index at the 5th fret on every string; the ring hammers the 7th-fret notes and the pinky the 8th-fret ones. Accent the picked notes to keep the triplets even.',
+  },
+  {
+    id: 'srv-oblique', title: 'Oblique bends', cat: 'SRV', level: 2, bpm: 100, key: 'E', groove: 'shuffle',
+    chords: ['E7', 'E7'],
+    notes: '3:14+2:15:1b2 3:14+2:15:.5u 2:12:.5 3:14+2:15:1b2 3:14:.5u 3:12:.5 4:14:.5 4:12:.5 5:14:.5 5:12:.5 6:15:.5q 6:12:1.5v',
+    about: 'Bend one string while the string next to it holds still: the G string climbs from A to B underneath a steady D. The two notes squeeze together as the bend rises. Stevie used it to make a double stop moan.',
+    tip: 'Ring finger bends the G string at the 14th, pinky holds the B string at the 15th. Push the G string up without dragging the B string with it.',
+  },
+  {
+    id: 'srv-slow-climb', title: 'Climb to the high root', cat: 'SRV', level: 3, bpm: 60, key: 'A', groove: 'slow',
+    chords: ['A7', 'A7'],
+    notes: '4:7:1/3 3:5:1/3 3:7:1/3 2:5:1/3 2:8:1/3 1:5:1/3 1:8:1/3 1:10:1/3 1:12:1/3s 1:15:1b2 1:15:1/3u 1:12:1/3 2:15:1/3 2:13:1/3q 2:15:1/3 2:13:1/3 3:14:2v',
+    about: 'On a slow blues Stevie would build a solo by climbing: start low in the first box, run up the top string, and arrive at a bend to the high A. Then come back down in the box at the 12th fret.',
+    tip: 'The slide on the top string (10th to 12th fret) is the shift: one finger glides and the hand comes with it. Land the bend right on beat 4.',
+  },
+  {
+    id: 'srv-low-blues', title: 'Low-string blues scale', cat: 'SRV', level: 1, bpm: 110, key: 'A', groove: 'shuffle',
+    chords: ['A7', 'A7'],
+    notes: '6:5:.5 6:8:.5 5:5:.5 5:6:.5h 5:7:.5 6:8:.5 6:5:1 4:7:.5 4:5:.5 5:7:.5 5:6:.5 5:5:.5 6:8:.5 6:5:1v',
+    about: 'Down on the low strings with the blues scale: the minor pentatonic plus the ♭5 (E♭), slipped in chromatically between D and E. Stevie’s heavy strings made these low lines sound like a horn section.',
+    tip: 'Dig in with the pick and let the low notes growl. Hammer the E♭ with the middle finger and keep going.',
+  },
+  {
+    id: 'srv-sixths', title: 'Sixths down the neck', cat: 'SRV', level: 2, bpm: 66, key: 'E', groove: 'slow',
+    chords: ['E7', 'A7'],
+    notes: '3:13+1:12:.5@21 3:11+1:10:.5@21 3:9+1:9:.5@23 3:7+1:7:.5@23 3:6+1:5:.5@21 3:4+1:4:1.5v@23 3:4+1:3:.5@21 3:6+1:5:1.5v@21 r:2',
+    about: 'Two notes a 6th apart, on the G and high E strings with the B string skipped, walked down the E scale. It is the soul and R&B sound of the ballads Stevie loved; the last pair moves to the 3rd and root of A7.',
+    tip: 'Two shapes: when the G-string note is a fret higher use middle and index; on the same fret use middle and ring. Pick the G string and pluck the high E with your picking hand’s middle finger, so the B string never sounds.',
+  },
+  {
+    id: 'twelve-bar-chorus', title: 'Full 12-bar chorus in A', cat: 'Blues', level: 3, bpm: 100, key: 'A', groove: 'shuffle',
+    chords: ['A7', 'D7', 'A7', 'A7', 'D7', 'D7', 'A7', 'A7', 'E7', 'D7', 'A7', 'E7'],
+    notes: '3:5+2:5:.5 3:6+2:5:.5h 3:5+2:5:.5 3:6+2:5:.5h 2:5+1:5:1 r:1 ' +
+           '1:5:.5 2:7:.5 1:5:.5 2:7:.5 3:7:1v r:1 ' +
+           'r:.5 1:8:.5q 1:5:.5 2:8:.5 2:5:.5 3:7:.5b2 3:7:.5u 3:5:.5 ' +
+           '4:7:2v r:2 ' +
+           '2:10:.5 1:10:.5 2:10:1b2 2:10:.5u 2:8:.5 3:7:1v ' +
+           '3:7:.5 3:5:.5 4:7:.5 4:4:.5 5:5:2 ' +
+           'r:1 2:10:1/3 1:9:1/3 2:10:1/3 2:12:1b2 2:12:1/3u 2:10:1/3 3:11:1/3 ' +
+           '2:10:2v r:2 ' +
+           '1:10:.5 1:7:.5 2:9:.5 3:9:.5 2:9:1v r:1 ' +
+           '2:10:.5 1:10:.5 2:10:.5 2:7:.5 3:7:1v r:1 ' +
+           '1:5:1/3@1 2:8:1/3@3 3:9:1/3@4 1:5:1/3@1 2:7:1/3@2 3:8:1/3@3 1:5:1/3@1 2:6:1/3@2 3:7:1/3@3 1:5:1/3@1 2:5:1/3@1 3:6:1/3@2 ' +
+           '5:7+4:6+3:7+2:5:2 r:2',
+    about: 'A whole chorus of the 12-bar blues built from licks in this library, each one aimed at the chord underneath: Texas double stops, a D7 line on its 3rd (F♯), curls and bends, the B.B. King box, a line that hits E7’s 3rd (G♯), and the turnaround. This is how the licks turn into a solo.',
+    tip: 'Watch the chord names: every phrase starts on a note of the new chord. Learn it four bars at a time, then play the whole thing with the band.',
+  },
+  {
+    id: 'lonnie-triplets', title: 'Lonnie Mack triplet runs', cat: 'Blues', level: 3, bpm: 120, key: 'E', groove: 'rock',
+    chords: ['E7', 'E7'],
+    notes: '1:12:1/3 2:15:1/3 2:12:1/3 1:12:1/3 2:15:1/3 2:12:1/3 3:14:1/3 3:13:1/3p 3:12:1/3p 4:12:1/3 4:14:1/3 3:12:1/3 3:13:.5h 1:12:1.5v r:2',
+    about: 'Lonnie Mack’s fast, clean instrumental records from the early 1960s were among the first things Stevie learned as a boy, and years later Stevie co-produced Lonnie’s comeback album. This is his style: rolling triplets with a chromatic slip from A through G♯ to G.',
+    tip: 'The pull-offs go A to G♯ to G on one string: ring, middle, index. Pick only the A.',
+  },
+  {
+    id: 'jimmie-less', title: 'Jimmie Vaughan: say less', cat: 'Blues', level: 1, bpm: 120, key: 'A', groove: 'shuffle',
+    chords: ['A7', 'A7'],
+    notes: 'r:1 3:5:.5 3:6:.5h 2:5:.5 r:.5 1:5:.5 2:7:.5 2:5:.5 3:6:.5 3:4:.5 4:7:1.5 r:1',
+    about: 'Stevie’s big brother Jimmie, of the Fabulous Thunderbirds, was his first and biggest influence. Jimmie’s rule: play fewer notes, play them short, and leave space. Major sound (C♯ and F♯) with one hammer from the minor 3rd.',
+    tip: 'Play it quieter than you think, with short notes. Lift your fretting fingers right after each note so it stops.',
+  },
+  {
+    id: 'albert-prebend', title: 'Albert King pre-bends', cat: 'Blues', level: 2, bpm: 60, key: 'A', groove: 'slow',
+    chords: ['A7', 'A7'],
+    notes: '2:8:1u 2:10:.5 1:8:.5q 1:8:1b2 1:8:.5u 2:10:.5 2:8:.5q 3:9:.5 3:7:.5b2 3:7:.5u 4:7:2v',
+    about: 'A pre-bend is bent before you pick it, so the note starts high and falls. Albert King opened phrases with them: the first note sounds as A and droops to G. It sounds like a voice sighing.',
+    tip: 'Bend silently, check it against A at the 10th fret, then pick and let it down slowly. Use the ring finger with the others pushing behind it.',
+  },
+  {
+    id: 'albert-one-note', title: 'Albert King: one note, three pitches', cat: 'Blues', level: 2, bpm: 90, key: 'A', groove: 'shuffle',
+    chords: ['A7', 'A7'],
+    notes: 'r:.5 2:8:.5b2 r:.5 2:8:.5b2 2:8:.5u 2:5:.5 3:7:1v r:.5 2:8:.5b 2:8:.5b2 2:8:.5u 2:5:.5 3:7:.5 4:7:1v',
+    about: 'Albert King could play a whole chorus on one string spot: G bent up a whole step to A, a half step to G♯, released back to G. Each pitch says something different. Stevie copied this so closely that Albert teased him about it.',
+    tip: 'Hit each bend in rhythm. The half bend is the hard one: stop at G♯, not A.',
+  },
+  {
+    id: 'minor-into-iv', title: 'Minor blues: into the iv', cat: 'Blues', level: 1, bpm: 63, key: 'A minor', groove: 'slow',
+    chords: ['Am7', 'Dm7'],
+    notes: '2:5:.5 2:6:.5h 2:8:.5 1:5:.5 1:8:1b2 1:8:.5u 1:5:.5 2:6:1v 3:7:.5 3:5:.5 4:7:.5 5:8:.5 5:5:1',
+    about: 'In a minor blues every chord is minor, so the line can lean on F, the ♭6 of A minor, which becomes the minor 3rd of Dm7 when the chord changes. The bend from C to D pulls toward the new chord.',
+    tip: 'Hold the F at the start of bar two with a slow vibrato: it is the note that tells everyone the chord changed.',
+  },
+  {
+    id: 'minor-dorian', title: 'Minor blues with the 6th', cat: 'Blues', level: 2, bpm: 66, key: 'A minor', groove: 'slow',
+    chords: ['Am7', 'Am7'],
+    notes: '4:7:.5 3:5:.5 3:7:.5 2:5:.5 2:7:.5 2:8:.5 1:5:1v 1:7:.5 1:5:.5 2:7:.5 2:5:.5 3:7:.5b2 3:5:.5 4:7:1v',
+    about: 'Add F♯ (the major 6th) to A minor pentatonic and the sound turns smoky and sophisticated: this is the Dorian mode. Otis Rush and B.B. King used it in minor blues, and Stevie did on his jazzier slow tunes.',
+    tip: 'The F♯ is on the B string at the 7th fret. Let it stand out a little; it is the colour note.',
+  },
+  {
+    id: 'minor-v', title: 'Minor blues: the V chord', cat: 'Blues', level: 2, bpm: 63, key: 'A minor', groove: 'slow',
+    chords: ['E7', 'Am7'],
+    notes: '1:8:.5 1:7:.5 1:5:.5 1:4:.5 2:6:.5 2:5:.5 3:7:.5 3:4:.5 3:5:2v r:2',
+    about: 'Over E7 in a minor blues, swap the G for G♯: it is E7’s 3rd and leads up to A. Here it runs down from C through G♯, F and D, then lands on C, the minor 3rd of Am7.',
+    tip: 'The G♯ is a stretch back with the index (4th fret on the top string). Lean into the C at the end.',
+  },
+  {
+    id: 'freddie-bounce', title: 'Freddie King bounce', cat: 'Blues', level: 1, bpm: 130, key: 'A', groove: 'shuffle',
+    chords: ['A7', 'A7'],
+    notes: '2:10:.5 1:9:.5 1:12:.5 1:9:.5 2:10:.5 2:12:.5 2:10:.5 3:11:.5 3:9:.5 3:11:.5 2:10:2v r:1',
+    about: 'Freddie King’s shuffles bounced on the major pentatonic (A B C♯ E F♯) high up the neck, bright and swinging, like a horn player. Stevie borrowed his drive and his attack.',
+    tip: 'Hit every note hard and swing the 8ths. Freddie’s shuffles never sat back.',
+  },
+  {
+    id: 'horn-riff', title: 'Horn-section riff', cat: 'Swing blues', level: 1, bpm: 140, key: 'A', groove: 'shuffle',
+    chords: ['A7', 'D7'],
+    notes: '6:5:.5 6:8:.5 6:9:.5h 5:7:.5 r:.5 5:7:.5 6:9:1 5:5:.5 5:8:.5 5:9:.5h 4:7:.5 r:.5 4:7:.5 5:9:1',
+    about: 'Jump blues bands built their tunes on short horn riffs, and the guitarist doubled them on the low strings. Root, minor 3rd hammered to major 3rd, 5th; then move the whole riff across a string for the IV chord.',
+    tip: 'Same fingers, same shape, one string higher for D7. Play it short and punchy like a sax section.',
+  },
+  {
+    id: 'tbone-ninths', title: 'T-Bone ninth-chord slides', cat: 'Swing blues', level: 1, bpm: 130, key: 'A', 
+    chords: ['A7', 'D7'],
+    notes: '4:4+3:3+2:4+1:4:.5@2133 4:5+3:4+2:5+1:5:.5s@2133 r:1 4:4+3:3+2:4+1:4:.5@2133 4:5+3:4+2:5+1:5:1.5s@2133 ' +
+           '4:9+3:8+2:9+1:9:.5@2133 4:10+3:9+2:10+1:10:.5s@2133 r:1 4:9+3:8+2:9+1:9:.5@2133 4:10+3:9+2:10+1:10:1.5s@2133',
+    about: 'T-Bone Walker, the father of electric blues guitar, slid into ninth chords from a fret below. The top four strings of a 9th chord (♭7, 9, 5, root) sound jazzy and bright. Stevie’s brother Jimmie and Stevie both used these in shuffles.',
+    tip: 'Index on the G string, middle on the D string, ring flattened across the top two strings. Slide the whole shape up one fret.',
+  },
+  {
+    id: 'intro-from-v', title: 'Intro from the V', cat: 'Turnarounds & endings', level: 2, bpm: 100, key: 'A', groove: 'shuffle',
+    chords: ['E7', 'A7'],
+    notes: '1:12:1/3 2:15:1/3 2:14:1/3 2:13:1/3 2:12:1/3 3:14:1/3 3:13:1/3 3:12:1/3 4:14:1/3 4:12:1/3 4:14:1/3 3:13:1/3 3:14:2v r:2',
+    about: 'Lots of blues tunes start on the V chord: the guitar plays a run down from the top, and the band comes in on the I. This one falls chromatically from E through D, C♯, C and B, then climbs E, G♯ into A.',
+    tip: 'Use it to count the band in: play it alone, then land on the A with the band.',
+  },
+  {
+    id: 'boogie-e-a', title: 'Boogie rhythm in E and A', cat: 'Riffs', level: 1, bpm: 120, key: 'E', groove: 'shuffle',
+    chords: ['E7', 'A7'],
+    notes: '6:0+5:2:.5 6:0+5:2:.5 6:0+5:4:.5 6:0+5:4:.5 6:0+5:5:.5 6:0+5:5:.5 6:0+5:4:.5 6:0+5:4:.5 ' +
+           '5:0+4:2:.5 5:0+4:2:.5 5:0+4:4:.5 5:0+4:4:.5 5:0+4:5:.5 5:0+4:5:.5 5:0+4:4:.5 5:0+4:4:.5',
+    about: 'The boogie rhythm under countless Texas shuffles: open string plus the 5th, 6th and ♭7 above it. Stevie played this kind of thing behind his solos and between his vocal lines.',
+    tip: 'Palm-mute the strings lightly and use downstrokes. Index on the 5th, ring on the 6th, pinky on the ♭7.',
+  },
 ];
 
 // ---- parsing --------------------------------------------------------------------------

@@ -81,6 +81,22 @@ export const TECH = [
     about: 'Hammer the minor 3rd up to the major 3rd over and over: open G to G♯ for E7, then the same move at the 5th fret for A7. This one small hammer-on is all over Stevie’s rhythm fills.',
     tip: 'In open position the index hammers the G♯ (it is the same finger as in an open E chord); at the 5th fret the middle does it. Keep the hammering finger close to the string and let the other strings ring.',
   },
+  {
+    id: 'maj-min-pent', title: 'Major and minor pentatonic', level: 2, bpm: 90, chords: ['A7', 'A7', 'A7', 'A7'], groove: 'shuffle',
+    notes: '6:5:.5 6:8:.5 5:5:.5 5:7:.5 4:5:.5 4:7:.5 3:5:.5 3:7:.5 2:5:.5 2:8:.5 1:5:.5 1:8:.5 ' +
+           '6:2:.5 6:5:.5 5:2:.5 5:4:.5 4:2:.5 4:4:.5 3:2:.5 3:4:.5 2:2:.5 2:5:.5 1:2:.5 1:5:.5 6:5:4',
+    about: 'The same A, two scales: A minor pentatonic at the 5th fret (A C D E G, gritty) and A major pentatonic three frets lower (A B C♯ E F♯, sweet). Blues players, Stevie most of all, switch between them all the time over a dominant 7th chord.',
+    tip: 'Play it with the band and listen to how different the two bars sound over the same A7.',
+  },
+  {
+    id: 'trill-ladder', title: 'Trill speed ladder', level: 2, bpm: 60, chords: ['E7', 'E7', 'E7', 'E7'], groove: 'slow',
+    notes: '1:12:.5 1:15:.5h 1:12:.5p 1:15:.5h 1:12:.5p 1:15:.5h 1:12:.5p 1:15:.5h ' +
+           '1:12:1/3 1:15:1/3h 1:12:1/3p 1:15:1/3h 1:12:1/3p 1:15:1/3h 1:12:1/3p 1:15:1/3h 1:12:1/3p 1:15:1/3h 1:12:1/3p 1:15:1/3h ' +
+           '1:12:1/4 1:15:1/4h 1:12:1/4p 1:15:1/4h 1:12:1/4p 1:15:1/4h 1:12:1/4p 1:15:1/4h 1:12:1/4p 1:15:1/4h 1:12:1/4p 1:15:1/4h 1:12:1/4p 1:15:1/4h 1:12:1/4p 1:15:1/4h ' +
+           '1:12:4v',
+    about: 'A trill between E and G (the root and minor 3rd), getting faster every bar: 8th notes, triplets, then 16ths. Pick only the first note of each bar; hammer-ons and pull-offs do the rest.',
+    tip: 'Keep the index planted at the 12th fret. If the notes get quieter, pull off a little sideways to pluck the string.',
+  },
 ];
 
 export const RHYTHM = [
