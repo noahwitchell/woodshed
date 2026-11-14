@@ -90,7 +90,7 @@ function ksBuffer(midi, kind) {
 }
 
 // Pluck one string. t = context time. glideFrom = midi to slide from (slides/bends).
-export function pluck(midi, t, { vel = 0.7, len = 2, kind = 'g', glideFrom = null, glideTime = 0.06, bendTo = null, dest = null, cents = 0 } = {}) {
+export function pluck(midi, t, { vel = 0.7, len = 2, kind = 'g', glideFrom = null, glideTime = 0.06, bendTo = null, bendFrom = null, vibrato = false, dest = null, cents = 0 } = {}) {
   const c = audio();
   const k0 = ksBuffer(midi, kind);
   const k = cents ? { ...k0, rate: k0.rate * Math.pow(2, cents / 1200) } : k0;
@@ -102,6 +102,24 @@ export function pluck(midi, t, { vel = 0.7, len = 2, kind = 'g', glideFrom = nul
   if (bendTo != null) {
     src.playbackRate.setValueAtTime(k.rate, t + 0.05);
     src.playbackRate.linearRampToValueAtTime(k.rate * Math.pow(2, (bendTo - midi) / 12), t + 0.05 + Math.min(0.25, len * 0.4));
+  }
+  // released bend: starts bent, falls back to the fretted pitch
+  if (bendFrom != null) {
+    const hold = Math.min(0.12, len * 0.3);
+    src.playbackRate.setValueAtTime(k.rate * Math.pow(2, (bendFrom - midi) / 12), t);
+    src.playbackRate.setValueAtTime(k.rate * Math.pow(2, (bendFrom - midi) / 12), t + hold);
+    src.playbackRate.linearRampToValueAtTime(k.rate, t + hold + Math.min(0.22, len * 0.5));
+  }
+  // wide blues vibrato: an LFO on the playback rate that fades in once the note settles
+  if (vibrato && len > 0.3) {
+    const top = bendTo != null ? bendTo : midi;
+    const lfo = c.createOscillator(), dg = c.createGain();
+    lfo.frequency.value = 5.6;
+    const depth = k.rate * Math.pow(2, (top - midi) / 12) * (Math.pow(2, 0.35 / 12) - 1);
+    const t0 = t + (bendTo != null ? 0.05 + Math.min(0.25, len * 0.4) : 0.12);
+    dg.gain.setValueAtTime(0, t); dg.gain.setValueAtTime(0, t0); dg.gain.linearRampToValueAtTime(depth, t0 + 0.25);
+    lfo.connect(dg); dg.connect(src.playbackRate);
+    lfo.start(t); lfo.stop(t + len + 0.1);
   }
   const g = c.createGain();
   const amp = vel * (kind === 'b' ? 0.95 : 0.55);
@@ -204,6 +222,20 @@ export function brush(t, vel = 0.5, dur = 0.18) {
   g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
   s.connect(bp); bp.connect(g); g.connect(out);
   s.start(t, Math.random() * 0.5); s.stop(t + dur + 0.02);
+}
+
+// Backbeat snare: band-passed noise over a short pitched body.
+export function snare(t, vel = 0.6) {
+  const c = audio();
+  const s = c.createBufferSource(); s.buffer = noise();
+  const bp = c.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 2400; bp.Q.value = 0.7;
+  const g = c.createGain(); env(g, t, 0.002, 0.32 * vel, 0.16);
+  s.connect(bp); bp.connect(g); g.connect(out); g.connect(wet);
+  s.start(t, Math.random() * 0.5); s.stop(t + 0.22);
+  const o = c.createOscillator(), og = c.createGain();
+  o.type = 'triangle'; o.frequency.setValueAtTime(220, t); o.frequency.exponentialRampToValueAtTime(160, t + 0.05);
+  env(og, t, 0.001, 0.22 * vel, 0.07);
+  o.connect(og); og.connect(out); o.start(t); o.stop(t + 0.12);
 }
 
 // Soft feathered kick.

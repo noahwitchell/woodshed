@@ -13,26 +13,29 @@ export function renderTab(notes, tl, { bars, width = 360, labels = 'degrees', ke
   const ROW = TOP + SP * 5 + LAB + 18 + fg;
   // fast lines (more than 8 notes in a bar) get twice the room so the fret numbers don't collide
   const perBar = {}; notes.forEach(n => { if (!n.rest) { const k = Math.floor(n.b / 4 + 1e-9); perBar[k] = (perBar[k] || 0) + 1; } });
-  const dense = Math.max(0, ...Object.values(perBar)) > 8;
-  const per = (width >= 640 ? 4 : 2) / (dense ? 2 : 1);
-  const rows = Math.ceil(bars / per);
+  // and bursts faster than triplets (sextuplets) get half a bar per row
+  const most = Math.max(0, ...Object.values(perBar));
+  const burst = notes.some(n => !n.rest && n.d < 0.3);
+  const per = (width >= 640 ? 4 : 2) / (most > 8 ? 2 : 1) / (burst ? 2 : 1);
+  const RB = per * 4, SB = Math.min(4, RB), nseg = RB / SB;   // beats per row, per segment, segments per row
+  const rows = Math.ceil((bars * 4) / RB - 1e-9);
   const L = 18, R = 6;
-  const bw = (width - L - R) / per;
-  const xOf = b => { const bar = Math.floor(b / 4 + 1e-9), k = bar % per; return L + k * bw + 12 + ((b - bar * 4) / 4) * (bw - 18); };
-  const yRow = b => Math.floor(Math.floor(b / 4 + 1e-9) / per) * ROW;
+  const bw = (width - L - R) / nseg;
+  const xOf = b => { const sg = Math.floor(b / SB + 1e-9), k = sg % nseg; return L + k * bw + 12 + ((b - sg * SB) / SB) * (bw - 18); };
+  const yRow = b => Math.floor(b / RB + 1e-9) * ROW;
   const sy = s => TOP + (s - 1) * SP;
   let o = `<svg class="tab" viewBox="0 0 ${width} ${rows * ROW}" width="100%" preserveAspectRatio="xMidYMin meet">`;
   for (let r = 0; r < rows; r++) {
-    const y0 = r * ROW, n = Math.min(per, bars - r * per);
+    const y0 = r * ROW, n = Math.min(nseg, Math.ceil((bars * 4 - r * RB) / SB - 1e-9));
     const x1 = L + n * bw;
     o += `<g transform="translate(0 ${y0})">`;
     o += `<text class="tab-tab" x="4" y="${sy(1) + 4}">T</text><text class="tab-tab" x="4" y="${sy(3) + 6}">A</text><text class="tab-tab" x="4" y="${sy(5) + 8}">B</text>`;
     for (let s = 1; s <= 6; s++) o += `<line class="tab-str" x1="${L}" x2="${x1}" y1="${sy(s)}" y2="${sy(s)}"/>`;
     for (let k = 0; k <= n; k++) o += `<line class="tab-bar" x1="${L + k * bw}" x2="${L + k * bw}" y1="${sy(1)}" y2="${sy(6)}"/>`;
     // beat counts
-    for (let k = 0; k < n; k++) for (let e = 0; e < 8; e++) {
-      const b = (r * per + k) * 4 + e / 2;
-      o += `<text class="tab-count${e % 2 ? ' off' : ''}" x="${xOf(b)}" y="${sy(6) + fg + LAB + 12}">${e % 2 ? '&' : e / 2 + 1}</text>`;
+    for (let k = 0; k < n; k++) for (let e = 0; e < SB * 2; e++) {
+      const b = (r * nseg + k) * SB + e / 2;
+      o += `<text class="tab-count${e % 2 ? ' off' : ''}" x="${xOf(b)}" y="${sy(6) + fg + LAB + 12}">${e % 2 ? '&' : (b % 4) + 1}</text>`;
     }
     o += `<line class="tab-head" data-row="${r}" x1="-10" x2="-10" y1="${sy(1) - 8}" y2="${sy(6) + 8}"/>`;
     o += '</g>';
@@ -50,7 +53,7 @@ export function renderTab(notes, tl, { bars, width = 360, labels = 'degrees', ke
     o += `<g class="tab-note" data-i="${i}" transform="translate(0 ${y0})">`;
     const sorted = [...n.p].sort((a, b) => a.s - b.s);
     if (n.d >= 1) {
-      const rowEnd = (Math.floor(Math.floor(n.b / 4 + 1e-9) / per) + 1) * per * 4;
+      const rowEnd = (Math.floor(n.b / RB + 1e-9) + 1) * RB;
       const xe = xOf(Math.min(n.b + n.d, rowEnd) - 0.01) - 4;
       if (xe > x + 12) sorted.forEach(q => { o += `<line class="tab-sus" x1="${x + 9}" x2="${xe}" y1="${sy(q.s)}" y2="${sy(q.s)}"/>`; });
     }
@@ -62,9 +65,11 @@ export function renderTab(notes, tl, { bars, width = 360, labels = 'degrees', ke
       o += `<text class="tab-fret" x="${x}" y="${sy(q.s) + 4}">${q.f}</text>`;
     });
     if (n.tech) {
-      const mark = { h: 'h', p: 'p', s: '/', b: '½', b2: 'full' }[n.tech];
-      o += `<text class="tab-tech" x="${x - (n.tech[0] === 'b' ? 0 : 8)}" y="${sy(sorted[0].s) - 9}">${mark}</text>`;
-      if (n.tech[0] === 'b') o += `<path class="tab-bend" d="M${x + 7} ${sy(sorted[0].s)} q6 0 6 -10" />`;
+      const mark = { h: 'h', p: 'p', s: '/', b: '½', b2: 'full', b3: '1½', q: '¼', u: 'rel', v: '~~' }[n.tech];
+      const up = n.tech[0] === 'b' || n.tech === 'q', y = sy(sorted[0].s);
+      o += `<text class="tab-tech" x="${x - (up || n.tech === 'u' || n.tech === 'v' ? 0 : 8)}" y="${y - 9}">${mark}</text>`;
+      if (up) o += `<path class="tab-bend" d="M${x + 7} ${y} q${n.tech === 'q' ? '4 0 4 -5' : '6 0 6 -10'}" />`;
+      if (n.tech === 'u') o += `<path class="tab-bend" d="M${x + 7} ${y - 8} q5 0 6 8" />`;
     }
     if (labels !== 'frets') {
       sorted.slice(0, 2).forEach((q, k) => {
@@ -92,7 +97,7 @@ export function paintTab(root, view, beat, activeIdx) {
   const svg = root.querySelector('svg.tab'); if (!svg) return;
   root.querySelectorAll('.tab-note.on').forEach(e => { if (+e.dataset.i !== activeIdx) e.classList.remove('on'); });
   if (activeIdx != null) root.querySelector(`.tab-note[data-i="${activeIdx}"]`)?.classList.add('on');
-  const row = beat == null ? -1 : Math.floor(Math.floor(beat / 4) / view.per);
+  const row = beat == null ? -1 : Math.floor(beat / (view.per * 4));
   root.querySelectorAll('.tab-head').forEach(l => {
     const on = +l.dataset.row === row;
     l.style.opacity = on ? 0.85 : 0;

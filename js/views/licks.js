@@ -8,7 +8,7 @@ import { TECH, RHYTHM } from '../data/drills.js';
 import { PROGS, COMPS, progById } from '../data/progressions.js';
 import { renderTab, paintTab, unswing } from '../tab.js';
 import { fingerNotes } from '../fingering.js';
-import { compEvents, bassEvents, drumEvents, clickEvents, lickEvents } from '../backing.js';
+import { compEvents, bassEvents, drumEvents, clickEvents, lickEvents, GROOVES } from '../backing.js';
 import { transposeChord, parseChord, pcName, prettyChord, NAME_PC } from '../theory.js';
 import { voicingFor } from '../data/chords.js';
 import { chordBox } from '../diagram.js';
@@ -87,10 +87,11 @@ function program() {
   let cycle = 0, bpm = cur.bpm, phase = P().countIn ? 'count' : 'lick';
   const band = (seed, withComp = true) => {
     const ev = [];
-    const comp = item.comp || (kind === 'tech' && item.click ? 'none' : 'four');
+    const G = GROOVES[item.groove] || GROOVES.swing;
+    const comp = item.comp || (kind === 'tech' && item.click ? 'none' : G.comp);
     if (withComp && comp !== 'none' && !item.chords.includes('—')) ev.push(...compEvents(tl, comp, { seed, vol: 0.75 }));
-    if (!item.chords.includes('—')) ev.push(...bassEvents(tl, 'walk', { seed, vol: 0.9 }));
-    ev.push(...drumEvents(L, 'ride', { vol: 0.8 }));
+    if (!item.chords.includes('—')) ev.push(...bassEvents(tl, G.bass, { seed, vol: 0.9 }));
+    ev.push(...drumEvents(L, G.drums, { vol: 0.8 }));
     return ev;
   };
   return {
@@ -137,8 +138,9 @@ function rhythmProgram() {
           });
         } else ev.push(...compEvents(tl, item.comp, { seed: cycle, vol: 0.9, fam: 'shell' }));
       }
-      ev.push(...bassEvents(tl, item.comp === 'pompe' ? 'two' : 'walk', { seed: cycle }));
-      ev.push(...drumEvents(L, item.comp === 'pompe' ? 'brush' : 'ride'));
+      const G = GROOVES[item.groove];
+      ev.push(...bassEvents(tl, G ? G.bass : item.comp === 'pompe' ? 'two' : 'walk', { seed: cycle }));
+      ev.push(...drumEvents(L, G ? G.drums : item.comp === 'pompe' ? 'brush' : 'ride'));
       cycle++;
       return { len: L, tag: 'lick', events: ev };
     },
@@ -147,7 +149,7 @@ function rhythmProgram() {
 
 function play() {
   if (T.playing && T.owner === OWNER) { T.stop(); return; }
-  const swing = cur.item.swing ?? (cur.kind === 'tech' && cur.item.id === 'spider' ? 0.5 : 0.62);
+  const swing = cur.item.swing ?? GROOVES[cur.item.groove]?.swing ?? (cur.kind === 'tech' && cur.item.id === 'spider' ? 0.5 : 0.62);
   T.start(cur.kind === 'rhythm' ? rhythmProgram() : program(), { bpm: cur.bpm, swing, owner: OWNER });
   lickState(cur.item.id).plays++; save();
 }

@@ -3,7 +3,7 @@
 // (index finger over fret P, one finger per fret); the index may reach back one fret and the
 // pinky may stretch one fret up. Costs favour staying in position, shifting during long
 // notes or rests, sliding with the same finger, hammering up / pulling off down the fingers,
-// and bending with the ring finger (backed up by the others).
+// and bending with the ring finger (backed up by the others); a release stays on the bending finger.
 // A token can pin fingers with "@": "3:7:.5@1", double stop "3:6+2:8:1@24" (one digit per
 // '+' part, 0 = leave it to the solver).
 
@@ -48,10 +48,11 @@ function noteCost(n, opt) {
     if (o.dev) c += 0.7;
     if (o.k === 4) c += 0.15;
   });
-  if (n.tech === 'b' || n.tech === 'b2') {
-    const k = opt[0].k;
-    c += k === 3 ? 0 : k === 2 ? 0.4 : k === 4 ? 1.8 : 2.5;
-  }
+  const k0 = opt[0].k;
+  if (n.tech === 'b' || n.tech === 'b2' || n.tech === 'b3') c += k0 === 3 ? 0 : k0 === 2 ? 0.4 : k0 === 4 ? 1.8 : 2.5;
+  else if (n.tech === 'u') c += k0 === 3 ? 0 : k0 === 2 ? 0.3 : k0 === 4 ? 1.2 : 1.8;
+  // quarter-tone curl: any finger nudges it, the index and ring do it best
+  else if (n.tech === 'q') c += k0 === 1 || k0 === 3 ? 0 : 0.3;
   // double stops: a barre over a skipped string, or a gap of frets wider than the gap of fingers
   for (let a = 0; a < opt.length; a++) for (let b = a + 1; b < opt.length; b++) {
     const A = opt[a], B = opt[b], qa = n.p[a], qb = n.p[b];
@@ -79,6 +80,11 @@ function moveCost(prev, cur, prevOpt, opt, P0, P1, gap) {
     const a = prevOpt[0].k, b = opt[0].k;
     if (cur.tech === 'h' && b <= a) c += 10;
     if (cur.tech === 'p' && a && b >= a) c += 10;
+    if (dP) c += 3;
+  }
+  // releasing a bend: the finger that bent it lets it down, without moving the hand
+  if (cur.tech === 'u' && prev.p.length === 1 && prev.p[0].s === cur.p[0].s && prev.p[0].f === cur.p[0].f) {
+    if (prevOpt[0].k !== opt[0].k) c += 10;
     if (dP) c += 3;
   }
   // same finger, same fret, next string: a roll (fine slowly, awkward fast)

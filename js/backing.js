@@ -61,6 +61,16 @@ export function bassEvents(tl, style = 'walk', { seed = 1, vol = 1 } = {}) {
     const pcs = chordPcs(ch);
     const root = nearest(ch.root, prev);
     const nextRoot = nearest(nx.root, root);
+    if (style === 'boogie' || style === 'eighths') {
+      // blues bass: boogie quarters R 3 5 6 | ♭7 6 5 3 (shuffle / slow blues), or driving root 8ths
+      const R = nearest(ch.root, 40, 38, 50), bar = Math.round(c.b / 4);
+      if (style === 'eighths') { for (let k = 0; k < c.len * 2; k++) note(c.b + k / 2, k === c.len * 2 - 1 && nextRoot !== root ? nearest(nx.root, R, 36, 52) : R, 0.45, k % 2 ? 0.62 : 0.8); prev = R; return; }
+      const third = R + (ch.q.startsWith('m') && !ch.q.startsWith('maj') ? 3 : 4);
+      const up = [R, third, R + 7, R + 9], down = [R + 10, R + 9, R + 7, third];
+      const line = c.len <= 2 ? [R, R + 7] : bar % 2 ? down : up;
+      line.forEach((m, k) => note(c.b + k, m, 0.9, k === 0 ? 0.9 : 0.74));
+      prev = R; return;
+    }
     if (style === 'two') {
       note(c.b, root, 2, 0.85);
       if (c.len >= 4) note(c.b + 2, nearest(pcs[2], root), 2, 0.75);
@@ -79,6 +89,14 @@ export function bassEvents(tl, style = 'walk', { seed = 1, vol = 1 } = {}) {
   return ev;
 }
 
+// Band settings per groove: comping, bass, drums, swing. Licks pick one with `groove`.
+export const GROOVES = {
+  swing:   { comp: 'four', bass: 'walk', drums: 'ride', swing: 0.62 },
+  shuffle: { comp: 'push', bass: 'boogie', drums: 'shuffle', swing: 0.67 },
+  slow:    { comp: 'push', bass: 'boogie', drums: 'slow', swing: 0.67 },
+  rock:    { comp: 'push', bass: 'eighths', drums: 'rock', swing: 0.5 },
+};
+
 // ---- drums -------------------------------------------------------------------------------
 export function drumEvents(beats, style = 'ride', { vol = 1 } = {}) {
   if (style === 'none') return [];
@@ -93,6 +111,18 @@ export function drumEvents(beats, style = 'ride', { vol = 1 } = {}) {
     } else if (style === 'brush') {
       ev.push({ b, kind: 'drum', play: t => A.brush(t, (two ? 0.75 : 0.5) * vol, two ? 0.12 : 0.3) });
       if (two) ev.push({ b, kind: 'drum', play: t => A.hat(t, 0.45 * vol) });
+    } else if (style === 'shuffle' || style === 'rock') {
+      // blues kit: kick 1 and 3, snare backbeat, hi-hat on every (swung) 8th
+      ev.push({ b, kind: 'drum', play: t => A.hat(t, (two ? 0.75 : 0.6) * vol) });
+      ev.push({ b: b + 0.5, kind: 'drum', play: t => A.hat(t, 0.4 * vol) });
+      if (two) ev.push({ b, kind: 'drum', play: t => A.snare(t, 0.75 * vol) });
+      else ev.push({ b, kind: 'drum', play: t => A.kick(t, 0.6 * vol) });
+      if (style === 'rock' && b % 4 === 2) ev.push({ b: b + 0.5, kind: 'drum', play: t => A.kick(t, 0.45 * vol) });
+    } else if (style === 'slow') {
+      // slow blues: ride triplets (12/8 feel), fat backbeat, kick on 1 and 3
+      [0, 1 / 3, 2 / 3].forEach((o, k) => ev.push({ b: b + o, kind: 'drum', play: t => A.ride(t, (k ? 0.38 : 0.6) * vol) }));
+      if (two) ev.push({ b, kind: 'drum', play: t => A.snare(t, 0.8 * vol) });
+      else ev.push({ b, kind: 'drum', play: t => A.kick(t, 0.6 * vol) });
     } else if (style === 'hat') {
       if (two) ev.push({ b, kind: 'drum', play: t => A.hat(t, 0.8 * vol) });
     }
@@ -112,21 +142,27 @@ export function clickEvents(beats, { sound = 'click', accent = 'one', per = 4 } 
 }
 
 // ---- lick notes ------------------------------------------------------------------------
+const BEND = { b: 1, b2: 2, b3: 3, q: 0.5 };
 export function lickEvents(notes, { vol = 1, offset = 0 } = {}) {
   const ev = [];
   let prev = null;
   notes.forEach((n, i) => {
     if (n.rest) { prev = null; return; }
     const midis = n.p.map(q => fretMidi(q.s, q.f));
-    const legato = n.tech === 'h' || n.tech === 'p' || n.tech === 's';
+    const legato = n.tech === 'h' || n.tech === 'p' || n.tech === 's' || n.tech === 'u';
     const glide = n.tech === 's' && prev ? prev[0] : null;
-    const bend = n.tech === 'b' ? midis[0] + 1 : n.tech === 'b2' ? midis[0] + 2 : null;
+    const bend = BEND[n.tech] != null ? midis[0] + BEND[n.tech] : null;
+    // release: start where the previous bend on this fret ended (else a whole step up)
+    const pn = notes[i - 1];
+    const relAmt = n.tech === 'u' ? (pn && !pn.rest && BEND[pn.tech] && pn.p[0].s === n.p[0].s && pn.p[0].f === n.p[0].f ? BEND[pn.tech] : 2) : null;
+    const vib = n.tech === 'v' || (bend != null && n.tech !== 'q' && n.d >= 1);
     const nextRest = notes[i + 1]?.rest;
     const len = n.d * (nextRest ? 0.95 : 1.05);
     ev.push({
       b: n.b + offset, len, kind: 'lick', idx: i,
       play: (t, d) => midis.forEach((m, k) => A.pluck(m, t + k * 0.008, {
-        vel: (legato ? 0.5 : 0.8) * vol, len: d, glideFrom: k === 0 ? glide : null, bendTo: bend,
+        vel: (legato ? 0.5 : 0.8) * vol, len: d, glideFrom: k === 0 ? glide : null, bendTo: k === 0 ? bend : null,
+        bendFrom: k === 0 && relAmt ? m + relAmt : null, vibrato: k === 0 && vib,
       })),
     });
     prev = midis;

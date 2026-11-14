@@ -26,3 +26,8 @@
   same-finger hops, bends, slides, hammer/pull direction). Pin a finger in the lick data with `@` ("3:7:.5@1",
   double stop "5:3+3:5:1@13") when the solver disagrees with the tip text or the idiom. `node tests/fingers.mjs
   [id|hard]` prints them; the data test checks every pin is playable. Tips that name fingers must match.
+- Blues: lick techniques `q` (quarter-tone curl), `u` (release), `v` (vibrato), `b3`; licks pick a band with
+  `groove: 'shuffle' | 'slow' | 'rock'` (GROOVES in js/backing.js: boogie bass, snare backbeat, swing 0.67 / 0.5).
+  Cats 'Blues' (SRV's influences) and 'SRV'. Sextuplets (1/6) are fine: the tab gives half a bar per row
+  to anything faster than triplets. Content rule still applies: idioms in an artist's style, never a song's riff.
+- App icon: `icons/icon.svg` uses Noah's f-hole vector (`tools/fhole-source.svg`); `tools/render_icons.sh` makes the PNGs.

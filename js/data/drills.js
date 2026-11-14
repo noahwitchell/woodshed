@@ -48,6 +48,39 @@ export const TECH = [
     about: 'Melody in octaves through the three shapes: strings 6+4, 5+3 (two frets apart) and 4+2 (three frets apart, because of the B string).',
     tip: 'Strum through the muted middle string. Only the two octave notes should sound.',
   },
+  // ---- blues technique -------------------------------------------------------------------
+  {
+    id: 'bend-tune', title: 'Bend in tune', level: 1, bpm: 70, chords: ['A7', 'A7', 'A7'], groove: 'shuffle',
+    notes: '3:9:1 3:7:1b2@3 3:7:1u 3:5:1 2:10:1 2:8:1b2@3 2:8:1u 2:5:1 3:6:1 3:5:1b@3 3:5:1u 4:7:1',
+    about: 'Play the target note first, then bend up to match it: E then D bent to E, A then G bent to A, C♯ then C bent a half step. Then release back down. Out-of-tune bends are the most common blues mistake, and this fixes them.',
+    tip: 'Bend with the ring finger, with the middle and index behind it pushing too. Push the string toward the ceiling and turn your wrist, as if turning a key.',
+  },
+  {
+    id: 'vibrato', title: 'Wide vibrato', level: 1, bpm: 70, chords: ['A7', 'A7'], groove: 'slow',
+    notes: '3:7:2v 2:8:2v 2:10:1v 1:8:1b2 1:8:2u',
+    about: 'Long notes with a wide, even vibrato, then vibrato on top of a bend. Albert King, B.B. King and Stevie all had a vibrato you could recognise from one note: it is your voice on the guitar.',
+    tip: 'Make the vibrato from the wrist, not the finger, and keep it even: about five or six wobbles a second, in time with the band.',
+  },
+  {
+    id: 'pent-boxes', title: 'Pentatonic boxes 1 and 2', level: 1, bpm: 90, chords: ['A7', 'A7', 'A7', 'A7'], groove: 'shuffle',
+    notes: '6:5:.5 6:8:.5 5:5:.5 5:7:.5 4:5:.5 4:7:.5 3:5:.5 3:7:.5 2:5:.5 2:8:.5 1:5:.5 1:8:.5 ' +
+           '1:10:.5 1:8:.5 2:10:.5 2:8:.5 3:9:.5 3:7:.5 4:10:.5 4:7:.5 5:10:.5 5:7:.5 6:10:.5 6:8:.5 6:5:4',
+    about: 'A minor pentatonic up the first box (5th fret), then down the second box (7th to 10th). Most blues licks live in these two boxes, and the second one is where Albert King and Stevie played their biggest bends.',
+    tip: 'Say the note names as you go: A C D E G. Then find the A notes in each box without looking.',
+  },
+  {
+    id: 'bend-pull', title: 'Bend, release, pull-off', level: 2, bpm: 90, chords: ['A7', 'A7'], groove: 'shuffle',
+    notes: '3:7:.5b2 3:7:.5u 3:5:.5p 4:7:.5 3:7:.5b2 3:7:.5u 3:5:.5p 4:7:.5 2:8:.5b2 2:8:.5u 2:5:.5p 3:7:.5 2:8:.5b2 2:8:.5u 2:5:.5p 3:7:.5',
+    about: 'Pick once, bend up, let it down, pull off to the index: three notes from one pick stroke. Stevie and every Texas player used this to keep lines flowing at speed.',
+    tip: 'Only the bend and the last note of each group are picked. Keep the release smooth and pull off sideways so the low note rings.',
+  },
+  {
+    id: 'third-hammer', title: 'Major/minor 3rd hammer', level: 2, bpm: 110, chords: ['E7', 'E7', 'A7', 'A7'], groove: 'shuffle',
+    notes: '3:0:.5 3:1:.5h 2:0:.5 1:0:.5 3:0:.5 3:1:.5h 2:0:.5 1:0:.5 4:2:.5 3:0:.5 3:1:.5h 2:0:.5 3:1:.5 4:2:.5 6:0:1 ' +
+           '3:5:.5 3:6:.5h 2:5:.5 1:5:.5 3:5:.5 3:6:.5h 2:5:.5 1:5:.5 4:7:.5 3:5:.5 3:6:.5h 2:5:.5 3:6:.5 4:7:.5 5:0:1',
+    about: 'Hammer the minor 3rd up to the major 3rd over and over: open G to G♯ for E7, then the same move at the 5th fret for A7. This one small hammer-on is all over Stevie’s rhythm fills.',
+    tip: 'In open position the index hammers the G♯ (it is the same finger as in an open E chord); at the 5th fret the middle does it. Keep the hammering finger close to the string and let the other strings ring.',
+  },
 ];
 
 export const RHYTHM = [
@@ -67,7 +100,7 @@ export const RHYTHM = [
     grid: ['D', '', '', '', '', '', '', 'U'], accent: [7],
     about: 'Hit on beat 1, then again on the “and” of 4, and let it ring into the next bar. The next chord arrives an 8th note early, which gives the time a forward lean.',
     tip: 'On the push, play the NEXT bar’s chord.' },
-  { id: 'r-shuffle', title: 'Shuffle 8ths', comp: 'none', prog: 'blues-a', bpm: 110, lick: 'shuffle',
+  { id: 'r-shuffle', title: 'Shuffle 8ths', comp: 'none', prog: 'blues-a', bpm: 110, lick: 'shuffle', groove: 'shuffle',
     grid: ['D', 'D', 'D', 'D', 'D', 'D', 'D', 'D'], accent: [2, 6],
     about: 'The boogie riff over the whole 12-bar blues. Move the shape: A7 on strings 5+4, D7 on 4+3, E7 on 6+5.',
     tip: 'All downstrokes, with your picking hand palm muting the strings. Swing the 8ths hard.' },
