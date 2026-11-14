@@ -753,6 +753,94 @@ export const LICKS = [
     about: 'The Texas shuffle ending: run down the scale, hit a 9th chord one fret too high (F9), and slide it down to E9. The top four strings of a 9th chord are its 3rd, ♭7, 9th and 5th, so it sounds full without a bass note.',
     tip: 'Middle on the D string, ring flattened across the G and B strings, pinky on top. Hold the shape and slide the whole hand down one fret, then let it ring.',
   },
+  // ---- batch 4 ----------------------------------------------------------------------------
+  {
+    id: 'srv-pickups', title: 'Start before the bar', cat: 'SRV', level: 2, bpm: 90, key: 'A', groove: 'shuffle',
+    chords: ['A7', 'A7'],
+    notes: 'r:2 3:5:1/3 3:7:1/3 2:5:1/3 2:8:1/3 2:5:1/3 1:5:1/3 1:8:1b 1:8:.5u 1:5:.5 2:8:.5 2:5:.5 3:7:1v',
+    about: 'Stevie’s phrases rarely start on beat 1. They start a beat or two early and land on the bar line, which pulls the listener forward. Here a quick climb starts on beat 3 so the bend from C to C♯ (A7’s 3rd) lands right on the next downbeat.',
+    tip: 'Count “1, 2,” then go. The bend is the target: it must arrive exactly on 1.',
+  },
+  {
+    id: 'srv-step-half', title: 'Step-and-a-half cry', cat: 'SRV', level: 3, bpm: 63, key: 'E', groove: 'slow',
+    chords: ['E7', 'A7'],
+    notes: '2:12:1b3 2:12:.5u 2:10:.5 1:12:.5 1:10:.5 2:12:1v 1:12:1b2 1:12:.5u 1:10:.5 2:10:2v',
+    about: 'On a slow blues Stevie would push B up a step and a half to D, the ♭7 of E7: a wide, crying bend that sounds almost out of control. Over the A7, E bends up to F♯, the 6th, before the line settles on A.',
+    tip: 'Heavy strings fight back, so use three fingers on the bend. Check the top of the bend against D at the 15th fret.',
+  },
+  {
+    id: 'srv-sixteenths', title: 'Sixteenth-note run', cat: 'SRV', level: 3, bpm: 84, key: 'A', groove: 'shuffle',
+    chords: ['A7', 'A7'],
+    notes: '1:8:.25 1:5:.25 2:8:.25 2:5:.25 3:7:.25 3:5:.25 4:7:.25 4:5:.25 5:7:.25 5:5:.25 6:8:.25 6:5:.25 6:5:1 ' +
+           '6:5:.25 6:8:.25h 5:5:.25 5:7:.25h 4:5:.25 4:7:.25h 3:5:.25 3:7:.25h 2:5:.25 2:8:.25h 1:5:.25 1:8:.25h 1:8:1b',
+    about: 'Down the whole A minor pentatonic box in 16th notes, then straight back up with a hammer-on on every string, ending on C bent to C♯. Stevie used runs like this to explode out of a quiet phrase.',
+    tip: 'Going down, alternate pick every note. Going up, pick one and hammer one, so the right hand only works half as hard.',
+  },
+  {
+    id: 'freddie-e', title: 'Freddie King: major in E', cat: 'Blues', level: 2, bpm: 120, key: 'E', groove: 'shuffle',
+    chords: ['E7', 'E7'],
+    notes: '2:12:.5 1:9:.5 1:12:.5 1:9:.5 2:12:.5 2:9:.5 3:11:.5 3:9:.5 4:11:.5 4:9:.5 3:9:2v r:1',
+    about: 'Freddie King in E, up at the 9th fret in the major pentatonic (E F♯ G♯ B C♯). It is the same bright, bouncing sound as his A licks, moved to Stevie’s favourite key.',
+    tip: 'Index at the 9th fret, pinky on the 12th. Pick hard and swing it.',
+  },
+  {
+    id: 'collins-d', title: 'Albert Collins in D', cat: 'Blues', level: 2, bpm: 100, key: 'D', groove: 'shuffle',
+    chords: ['D7', 'D7'],
+    notes: 'r:.5 1:13:.25 1:10:.25 2:13:.5 r:.5 1:13:.25 1:10:.25 2:13:.5 3:12:1b2 3:12:.5u 3:10:.5 4:12:1v r:2',
+    about: 'Albert Collins, “the Master of the Telecaster”, came from the same Texas scene as Stevie. He stabbed out short, icy bursts of notes and left big gaps between them. Two quick stabs, then G bends up to A, the 5th.',
+    tip: 'Keep the stabs very short: release the fretting finger right after each note. Collins played with his fingers, no pick, and snapped the strings.',
+  },
+  {
+    id: 'bb-g', title: 'B.B. King in G', cat: 'Blues', level: 2, bpm: 66, key: 'G', groove: 'slow',
+    chords: ['G7', 'C7'],
+    notes: '2:10:.5 1:8:.5 1:10:1v 2:11:1b 2:10:.5 2:8:.5 3:9:.5 2:8:.5 1:8:1v 2:11:.5 2:10:.5 2:8:1',
+    about: 'B.B. King’s box at the 8th fret in G: A, C and D on top, then B♭ bent up a half step to B, the 3rd. Over C7 he picks out E (its 3rd), G and C, then lets B♭ (its ♭7) fall to G.',
+    tip: 'B.B. barely moved his hand: everything here is under four fingers. Give every long note his fast, narrow vibrato.',
+  },
+  {
+    id: 'green-repeat', title: 'Grant Green repeats', cat: 'Swing blues', level: 2, bpm: 140, key: 'F',
+    chords: ['F7', 'Bb7'],
+    notes: '2:9:1/3 2:10:1/3h 1:8:1/3 2:9:1/3 2:10:1/3h 1:8:1/3 2:9:1/3 2:10:1/3h 1:8:1/3 2:9:1/3 2:10:1/3h 1:8:1/3 ' +
+           '1:6:.5 2:9:.5 2:6:.5 3:8:.5 3:7:2',
+    about: 'Grant Green would grab a little figure and repeat it over and over, building tension until the band nearly exploded. Here A♭ hammered to A then C, four times, then a line down B♭7 to its 3rd, D.',
+    tip: 'Keep the figure dead even and let the swing of the band do the work. Don’t speed up.',
+  },
+  {
+    id: 'minor-riff', title: 'Minor blues riff', cat: 'Riffs', level: 1, bpm: 110, key: 'A minor', groove: 'rock',
+    chords: ['Am7', 'Dm7'],
+    notes: '5:0:.5 5:3:.5 5:5:.5 4:2:.5 4:5:.5 4:2:.5 5:5:.5 5:3:.5 4:0:.5 4:3:.5 4:5:.5 3:2:.5 3:5:.5 3:2:.5 4:5:.5 4:3:.5',
+    about: 'A low riff up and down the minor pentatonic, then the same shape one string higher for the iv chord. Riffs like this hold a minor blues together, and moving them across a string is how you follow the chords.',
+    tip: 'Use the same fingers on both bars. Play it straight (not swung) and dig in.',
+  },
+  {
+    id: 'e-shuffle-riff', title: 'Low E shuffle riff', cat: 'Riffs', level: 1, bpm: 120, key: 'E', groove: 'shuffle',
+    chords: ['E7', 'E7'],
+    notes: '6:0:.5 6:0:.5 6:3:.5 6:4:.5h 5:2:.5 6:0:.5 5:0:.5 5:1:.5h 5:2:.5 6:0:.5 6:3:.5 6:4:.5h 5:2:.5 4:2:.5 4:0:.5 5:2:.5',
+    about: 'The low-string E shuffle: root, then G hammered to G♯ (the blue 3rd to the real 3rd), up to B, with a chromatic A, B♭, B and a run up to the octave. Stevie played lines like this between vocal phrases in his shuffles.',
+    tip: 'Palm-mute lightly and swing it hard. The open low E should bounce.',
+  },
+  {
+    id: 'slow-ninths', title: 'Slow blues ninth chords', cat: 'Riffs', level: 2, bpm: 63, key: 'G', groove: 'slow',
+    chords: ['G7', 'C7'],
+    notes: '5:10+4:9+3:10+2:10:1@2133 r:1/3 5:9+4:8+3:9+2:9:1/3@2133 5:10+4:9+3:10+2:10:1/3s@2133 5:10+4:9+3:10+2:10:2@2133 ' +
+           '5:3+4:2+3:3+2:3:1@2133 r:1/3 5:2+4:1+3:2+2:2:1/3@2133 5:3+4:2+3:3+2:3:1/3s@2133 5:3+4:2+3:3+2:3:2@2133',
+    about: 'Slow-blues rhythm guitar with 9th chords: hit the chord, then slide into it again from a fret below. The 9th chord (root, 3rd, ♭7, 9th) is the sound of T-Bone Walker’s and B.B. King’s bands, and Stevie comped this way on his slow tunes.',
+    tip: 'Middle on the root, index on the 3rd, ring flattened over the top two strings. Keep the shape locked as it slides.',
+  },
+  {
+    id: 'walkdown-turn', title: 'Bass walk-down turnaround', cat: 'Turnarounds & endings', level: 1, bpm: 90, key: 'A', groove: 'shuffle',
+    chords: ['A7', 'E7'],
+    notes: '6:5+4:5:1 6:3+4:5:1 6:2+4:5:1 6:1+4:5:1 6:0+4:0+3:1:2 r:2',
+    about: 'The simplest turnaround: G stays on the D string while the bass walks down the low E string, A, G, F♯, F, to E. Bass players do the same thing, and you can do it alone.',
+    tip: 'Pick the two strings together and mute the A string in between with the side of the finger on the low E.',
+  },
+  {
+    id: 'jazz-blues-turn', title: 'Jazz-blues turnaround in F', cat: 'Turnarounds & endings', level: 3, bpm: 130, key: 'F',
+    chords: [['F7', 'D7'], ['Gm7', 'C7']],
+    notes: '1:8:.5 2:10:.5 3:10:.5 3:8:.5 3:7:.5 2:7:.5 2:10:.5 1:8:.5 1:10:.5 2:11:.5 2:8:.5 3:10:.5 3:9:.5 2:8:.5 2:11:.5 2:10:.5',
+    about: 'Jazz-blues players swap the plain turnaround for I–VI–ii–V: F7, D7, Gm7, C7. Each chord gets two beats of its own notes: down F7, up D7 through F♯, down Gm7, then up C7 through E and B♭ to land on A, the 3rd of F.',
+    tip: 'Learn the four chords as shapes first, then play the line slowly and say each chord name as it changes.',
+  },
 ];
 
 // ---- parsing --------------------------------------------------------------------------

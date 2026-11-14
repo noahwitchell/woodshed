@@ -112,6 +112,21 @@ export const TECH = [
     about: 'The minor pentatonic plus one note, the ♭5 (E♭): A C D E♭ E G. The ♭5 is a passing note: slip through it on the way between D and E, never sit on it. Stevie used it constantly in his fast runs.',
     tip: 'Index at the 5th fret, ring on the 7th, pinky on the 8th; the E♭ on the A and G strings goes to the middle finger.',
   },
+  {
+    id: 'blues-arps', title: 'Blues chord arpeggios', level: 2, bpm: 90, chords: ['A7', 'D7', 'A7', 'E7'], groove: 'shuffle',
+    notes: '6:5:.5 5:4:.5 5:7:.5 4:5:.5 4:7:.5 3:6:.5 2:5:.5 3:6:.5 ' +
+           '5:5:.5 4:4:.5 4:7:.5 3:5:.5 3:7:.5 2:7:.5 1:5:.5 2:7:.5 ' +
+           '6:5:.5 5:4:.5 5:7:.5 4:5:.5 4:7:.5 3:6:.5 2:5:.5 3:6:.5 ' +
+           '5:7:.5 4:6:.5 3:4:.5 3:7:.5 2:5:.5 1:4:.5 2:5:.5 1:4:.5',
+    about: 'Root, 3rd, 5th and ♭7 of each chord of the blues, all around the 5th fret: A7 (A C♯ E G), D7 (D F♯ A C), E7 (E G♯ B D). The pentatonic box gets you through the blues; the chord tones make each change sound on purpose.',
+    tip: 'Find the 3rd of each chord (C♯, F♯, G♯) and remember where it lives. Those three notes are what the band is playing.',
+  },
+  {
+    id: 'vib-fingers', title: 'Vibrato with every finger', level: 1, bpm: 70, chords: ['A7', 'A7'], groove: 'slow',
+    notes: '2:5:1v@1 2:6:1v@2 2:7:1v@3 2:8:1v@4 2:8:1v@4 2:7:1v@3 2:6:1v@2 2:5:1v@1',
+    about: 'Most players only have vibrato on one finger. Stevie and B.B. King could make any note sing. Hold each note for a beat and shake it with a different finger each time, index to pinky and back.',
+    tip: 'Make the vibrato come from the wrist rocking, not the finger wiggling. The weak fingers get help from the ones behind them on the string.',
+  },
 ];
 
 export const RHYTHM = [
