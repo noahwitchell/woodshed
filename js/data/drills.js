@@ -97,6 +97,21 @@ export const TECH = [
     about: 'A trill between E and G (the root and minor 3rd), getting faster every bar: 8th notes, triplets, then 16ths. Pick only the first note of each bar; hammer-ons and pull-offs do the rest.',
     tip: 'Keep the index planted at the 12th fret. If the notes get quieter, pull off a little sideways to pluck the string.',
   },
+  {
+    id: 'pent-threes', title: 'Pentatonic in threes', level: 2, bpm: 80, chords: ['A7', 'A7', 'A7'], groove: 'shuffle',
+    notes: '1:8:1/3 1:5:1/3 2:8:1/3 1:5:1/3 2:8:1/3 2:5:1/3 2:8:1/3 2:5:1/3 3:7:1/3 2:5:1/3 3:7:1/3 3:5:1/3 ' +
+           '3:7:1/3 3:5:1/3 4:7:1/3 3:5:1/3 4:7:1/3 4:5:1/3 4:7:1/3 4:5:1/3 5:7:1/3 4:5:1/3 5:7:1/3 5:5:1/3 ' +
+           '5:7:1/3 5:5:1/3 6:8:1/3 5:5:1/3 6:8:1/3 6:5:1/3 6:5:2',
+    about: 'Down the A minor pentatonic in groups of three: three notes down, step back one, three more. Sequences like this are how blues players build fast runs that don’t sound like a scale. Each group is one triplet beat.',
+    tip: 'Accent the first note of every group. Alternate pick strictly, down-up-down, up-down-up.',
+  },
+  {
+    id: 'blues-scale', title: 'Blues scale, box 1', level: 1, bpm: 90, chords: ['A7', 'A7', 'A7', 'A7'], groove: 'shuffle',
+    notes: '6:5:.5 6:8:.5 5:5:.5 5:6:.5 5:7:.5 4:5:.5 4:7:.5 3:5:.5 3:7:.5 3:8:.5 2:5:.5 2:8:.5 1:5:.5 1:8:.5 1:5:1 ' +
+           '1:8:.5 1:5:.5 2:8:.5 2:5:.5 3:8:.5 3:7:.5 3:5:.5 4:7:.5 4:5:.5 5:7:.5 5:6:.5 5:5:.5 6:8:.5 6:5:.5 6:5:1',
+    about: 'The minor pentatonic plus one note, the ♭5 (E♭): A C D E♭ E G. The ♭5 is a passing note: slip through it on the way between D and E, never sit on it. Stevie used it constantly in his fast runs.',
+    tip: 'Index at the 5th fret, ring on the 7th, pinky on the 8th; the E♭ on the A and G strings goes to the middle finger.',
+  },
 ];
 
 export const RHYTHM = [

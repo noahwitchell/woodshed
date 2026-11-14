@@ -628,6 +628,131 @@ export const LICKS = [
     about: 'The boogie rhythm under countless Texas shuffles: open string plus the 5th, 6th and ♭7 above it. Stevie played this kind of thing behind his solos and between his vocal lines.',
     tip: 'Palm-mute the strings lightly and use downstrokes. Index on the 5th, ring on the 6th, pinky on the ♭7.',
   },
+  // ---- batch 3 ----------------------------------------------------------------------------
+  {
+    id: 'srv-slow-chorus', title: 'Slow blues chorus in E', cat: 'SRV', level: 3, bpm: 60, key: 'E', groove: 'slow',
+    chords: ['E7', 'A7', 'E7', 'E7', 'A7', 'A7', 'E7', 'E7', 'B7', 'A7', 'E7', 'B7'],
+    notes: '1:12:1/3 2:15:1/3 2:12:1/3 3:14:1b2 3:14:1/3u 3:12:1/3 4:14:1/3 4:14:1v ' +
+           'r:1/3 2:14:1/3 1:12:1/3 1:15:1b2 1:15:1/3u 1:12:1/3 2:14:1/3 3:12:1/3 3:14:2/3v ' +
+           '2:12:1/3 2:15:1/3q 2:12:1/3 3:14:1/3 3:12:1/3 4:14:1/3 5:14:1/3 6:15:1/3 6:12:1/3 5:14:1/3 4:14:1/3 4:12:1/3 ' +
+           '4:14:2v r:1 3:12:1/3 3:13:1/3h 3:14:1/3h ' +
+           '2:14:1.5v 1:15:.5 1:12:.5 2:14:.5 3:14:1 ' +
+           '3:12:1/3 3:14:1/3 3:12:1/3q 4:14:1/3 4:12:1/3 5:14:1/3 5:12:1v r:1 ' +
+           '2:15:1b2 2:15:1b2 2:15:1/3u 2:12:1/3 1:12:1/3 2:15:1/3 2:12:1/3 1:12:1/3 ' +
+           '1:12:2v r:1.5 4:12:.5 ' +
+           '4:13:.5h 3:11:.5 2:12:.5 1:14:.5 3:14:1b2 3:14:.5u 3:11:.5 ' +
+           '2:14:1/3 1:12:1/3 2:14:1/3 3:14:1/3 3:12:1/3 3:14:1/3 2:14:2v ' +
+           '1:12:1/3 2:15:1/3 2:12:1/3 3:14:1/3 3:12:1/3 4:14:1/3 4:12:1/3 5:14:1/3 4:12:1/3 4:14:1v ' +
+           'r:1 5:2+4:1+3:2+2:0:2 r:1',
+    about: 'A whole slow-blues chorus in E, Stevie’s favourite key for it, all in the box at the 12th fret. Each chord gets its own notes: C♯ (the 3rd) over A7, D♯ and F♯ over B7, and a chromatic G, G♯, A climb into the IV chord. It ends on a B7 chord so the next chorus can start.',
+    tip: 'Play it at 50 first. On a slow blues every long note gets vibrato, and every rest is part of the phrase: let the band fill it.',
+  },
+  {
+    id: 'srv-open-pulloffs', title: 'Open-E pull-off cascade', cat: 'SRV', level: 3, bpm: 100, key: 'E', groove: 'shuffle',
+    chords: ['E7', 'E7'],
+    notes: '1:3:1/3 1:0:1/3p 2:3:1/3 2:0:1/3p 3:2:1/3 3:0:1/3p 4:2:1/3 4:0:1/3p 5:2:1/3 5:0:1/3p 6:3:1/3 6:0:1/3p ' +
+           '6:0:1/3 6:3:1/3 6:4:1/3h 5:0:1/3 5:1:1/3h 5:2:1/3h 4:0:1/3 4:1:1/3h 4:2:1/3h 6:0+5:2+4:2+3:1:1',
+    about: 'Down the E minor pentatonic in open position, pulling off to every open string, then back up the low strings with chromatic hammer-ons (G, G♯ / A, B♭, B / D, D♯, E) into an E chord. Open strings ring and sound huge, which is why Stevie loved the key of E for fast instrumentals.',
+    tip: 'Pick only the fretted note of each pair; the pull-off sounds the open string. Going up, pick the first note on each string and hammer the other two.',
+  },
+  {
+    id: 'srv-octaves', title: 'Jazzy octaves', cat: 'SRV', level: 2, bpm: 120, key: 'A',
+    chords: ['A7', 'D7'],
+    notes: '4:7+2:10:.5@14 4:10+2:13:.5@14 4:9+2:12:.5@14 4:7+2:10:.5@14 4:5+2:8:.5@14 4:4+2:7:.5@14 4:5+2:8:1@14 ' +
+           '5:5+3:7:.5@13 5:9+3:11:.5@13 5:7+3:9:.5@13 5:5+3:7:.5@13 4:4+2:7:2@14',
+    about: 'Stevie had a jazz side: he loved Wes Montgomery and Kenny Burrell and played their kind of octaves on his swing tunes. The same line in two octaves at once sounds fat and smooth. Over the D7 it lands on F♯, the chord’s 3rd.',
+    tip: 'Index on the low note, pinky (or ring, on the A and G strings) on the high one. Let the underside of the index finger touch the string between them so it stays silent, then strum all three.',
+  },
+  {
+    id: 'hendrix-embellish', title: 'Hendrix chord embellishments', cat: 'Blues', level: 2, bpm: 76, key: 'E', groove: 'slow',
+    chords: ['E7', 'A7'],
+    notes: '4:2:.5 3:4+2:5:.5 1:2:.5 1:4:.5h 2:5+1:4:.5 1:5:.5h 1:4:.5p 1:2:.5p ' +
+           '5:0:.5 4:2+3:2+2:2:.5 2:3:.5h 2:2:.5p 2:0:.5p 3:2:.5 4:2+3:2+2:2:1',
+    about: 'Jimi Hendrix played rhythm guitar by decorating the chord: hold the shape and let spare fingers hammer on the 2nd and 4th around the 3rd (F♯, A around G♯ on E; D around C♯ on A). Stevie built his ballad rhythm playing on exactly this.',
+    tip: 'Keep the chord shape held the whole bar and let one finger do the hammering. Play it soft and let everything ring together.',
+  },
+  {
+    id: 'albert-big-bend', title: 'Albert King: the big bend', cat: 'Blues', level: 3, bpm: 66, key: 'A', groove: 'slow',
+    chords: ['A7', 'D7'],
+    notes: '1:12:1b3 1:12:.5u 1:10:.5 2:13:.5q 2:10:.5 3:12:1v 2:13:1b2 2:13:.5u 2:10:.5 3:11:2v',
+    about: 'Albert King bent strings further than anyone, a step and a half or more. Here E bends all the way up to G, the ♭7 of A7. Over the D7, C (its ♭7) bends up to the root D, then the line falls to F♯, the 3rd. Stevie studied Albert’s bends harder than anything else.',
+    tip: 'A step and a half is three frets: play G at the 15th fret first so you know where to stop. Bend with the ring finger, index and middle pushing behind it.',
+  },
+  {
+    id: 'slim-scream', title: 'Guitar Slim: the scream', cat: 'Blues', level: 2, bpm: 60, key: 'G', groove: 'slow',
+    chords: ['G7', 'G7'],
+    notes: '2:6:2b2 2:6:1/3u 2:3:1/3 1:3:1/3 1:6:1b 1:6:1/3u 1:3:1/3 2:6:1/3 2:3:1/3 3:5:1/3 3:3:1/3 4:5:2v',
+    about: 'Guitar Slim, from New Orleans in the 1950s, played loud, distorted and wild, years before anyone else. Stevie recorded one of Slim’s songs on his first album. Long, screaming bends: F up to G and held, then B♭ bent a half step to B, the 3rd.',
+    tip: 'Turn up the drive and hold the first bend for two full beats with a wide vibrato. Slim never played it quiet.',
+  },
+  {
+    id: 'buddy-whisper', title: 'Buddy Guy: whisper, then scream', cat: 'Blues', level: 2, bpm: 66, key: 'G', groove: 'slow',
+    chords: ['G7', 'G7'],
+    notes: '5:5:1/3 4:3:1/3 4:5:1/3 3:3:1/3 3:4:1/3h 2:3:1/3 r:2 ' +
+           '1:13:.5b2 1:13:.5b2 1:13:.5b2 1:13:.5u 1:10:.5 2:11:.5q 3:12:1v',
+    about: 'Buddy Guy plays with huge contrasts: a quiet little phrase down low, silence, then a sudden shriek at the top of the neck. Stevie said Buddy showed him how wild and free the guitar could be. Bar two picks F bent up to G three times, then lets it down.',
+    tip: 'Play bar one barely touching the strings, then dig in hard for bar two. Use the two beats of rest to jump up to the 13th fret.',
+  },
+  {
+    id: 'magic-west-side', title: 'Magic Sam: West Side minor', cat: 'Blues', level: 2, bpm: 70, key: 'D minor', groove: 'slow',
+    chords: ['Dm7', 'Gm7'],
+    notes: '1:13:.5 1:10:.5 2:13:1b2 2:13:.5u 2:10:.5 1:10:1v 3:12:.5 2:11:.5 1:10:.5 2:11:.5 3:12:.5 3:10:.5 4:12:1v',
+    about: 'Magic Sam played the Chicago West Side sound: minor keys, a stinging tone and a lot of feeling. C bends up to D (the root), and over Gm7 the line circles G, B♭ and D, the chord’s own notes.',
+    tip: 'The B♭ at the 11th fret is outside the box: reach it with the middle finger and keep the index at the 10th.',
+  },
+  {
+    id: 'lightnin-e', title: 'Lightnin’ Hopkins: Texas thumb', cat: 'Blues', level: 2, bpm: 90, key: 'E', groove: 'shuffle',
+    chords: ['E7', 'E7'],
+    notes: '6:0+1:3:1/3 1:0:1/3p 2:3:1/3 6:0+2:0:1/3 3:2:1/3 3:0:1/3p 6:0+4:2:.5 4:2+3:1:.5 6:0+4:2:.5 4:2+3:1:.5 ' +
+           '6:0+1:3:1/3 1:3:1/3 1:0:1/3p 2:3:1/3 2:0:1/3p 3:2:1/3 4:2:1/3 3:1:1/3 3:0:1/3 6:0+4:2+3:1:1',
+    about: 'Lightnin’ Hopkins was the great Texas country-blues player: one guitar playing bass, rhythm and lead together. The low E thumps on the beat while the top strings answer with little pull-offs. Stevie grew up in Texas on this sound.',
+    tip: 'Play the low E with your thumb (or a downstroke) on every beat, and the high notes with your fingers. Keep the thumb steady whatever the fingers do.',
+  },
+  {
+    id: 'burrell-f', title: 'Jazz-blues in F', cat: 'Swing blues', level: 2, bpm: 130, key: 'F',
+    chords: ['F7', 'Bb7'],
+    notes: '2:9:.5 2:10:.5h 1:8:.5 2:10:.5 3:10:.5 3:8:.5 4:10:.5 4:8:.5 3:7:.5 3:8:.5 2:6:.5 2:9:.5 1:6:1 r:1',
+    about: 'Jazz guitarists like Kenny Burrell and Grant Green played the blues with cleaner, horn-like lines. Stevie loved Burrell and recorded one of his tunes. Here A♭ hammers to A, the line walks down F7 and lands on D, the 3rd of B♭7, then climbs to its root.',
+    tip: 'Clean tone, light touch, swing the 8ths. No bends here: the jazz players got their blues from the notes they chose.',
+  },
+  {
+    id: 'minor-c', title: 'Minor blues in C', cat: 'Blues', level: 2, bpm: 66, key: 'C minor', groove: 'slow',
+    chords: ['Cm7', 'Fm7'],
+    notes: '2:11:1b2 2:11:.5u 2:8:.5 1:8:.5 2:8:.5 3:10:1v 2:9:.5 1:8:.5 2:9:.5 2:8:.5 1:11:1b2 1:11:.5u 1:8:.5',
+    about: 'A minor blues in C, at the 8th fret. Bar one ends on F, so when the chord changes to Fm7 you are already on its root; then A♭, its minor 3rd, and E♭ bent up to F.',
+    tip: 'The A♭ at the 9th fret is outside the pentatonic box: it is the note that makes Fm7 sound minor. Lean on it.',
+  },
+  {
+    id: 'e-turnaround', title: 'Turnaround in E', cat: 'Turnarounds & endings', level: 1, bpm: 90, key: 'E', groove: 'shuffle',
+    chords: ['E7', 'B7'],
+    notes: '4:2:1/3 2:3+1:0:1/3 2:3+1:0:1/3 4:2:1/3 2:2+1:0:1/3 2:2+1:0:1/3 4:2:1/3 2:1+1:0:1/3 2:1+1:0:1/3 4:2:1/3 2:0+1:0:1/3 2:0+1:0:1/3 ' +
+           '5:2+4:1+3:2+2:0:2 r:2',
+    about: 'The open-E turnaround: the high E rings on top while the B string walks down D, C♯, C, B, with the low E on every beat. Then B7 sends the 12-bar back to the top.',
+    tip: 'Thumb or downstroke on the bass E; then pick the two-note pairs twice. Ring, middle, index, then the open B: one finger per fret on the way down.',
+  },
+  {
+    id: 'g-turnaround', title: 'Rising turnaround in G', cat: 'Turnarounds & endings', level: 2, bpm: 90, key: 'G', groove: 'shuffle',
+    chords: ['G7', 'D7'],
+    notes: '4:5:1/3 3:4+1:3:1/3 3:4+1:3:1/3 4:5:1/3 3:5+1:3:1/3 3:5+1:3:1/3 4:5:1/3 3:6+1:3:1/3 3:6+1:3:1/3 4:5:1/3 3:7+1:3:1/3 3:7+1:3:1/3 ' +
+           '5:5+4:7+3:5+2:7+1:5:2 r:2',
+    about: 'The same idea going up: G stays on top while the G string climbs B, C, C♯, D. The rising line pulls hard into the D7.',
+    tip: 'Pick the pairs with your fingers so the B string between them stays quiet, or mute it with the underside of your fretting finger.',
+  },
+  {
+    id: 'minor-turnaround', title: 'Minor blues turnaround', cat: 'Turnarounds & endings', level: 2, bpm: 70, key: 'A minor', groove: 'slow',
+    chords: ['Am7', ['F7', 'E7']],
+    notes: '1:8:.5 1:5:.5 2:8:.5 2:5:.5 3:7:.5 3:5:.5 4:7:1 5:8:.5 4:7:.5 3:8:1 3:7:.5 4:6:.5 5:7:1',
+    about: 'Minor blues turnarounds often go F7 to E7: the chord a half step above the V, sliding down onto it. The line plays F7’s root, 3rd and ♭7 (F, A, E♭), then E7’s ♭7 and 3rd (D, G♯), and lands on E.',
+    tip: 'The E♭ and the G♯ are the notes that make it work. Give them a little weight.',
+  },
+  {
+    id: 'e-ending', title: 'Ninth-chord ending in E', cat: 'Turnarounds & endings', level: 2, bpm: 90, key: 'E', groove: 'shuffle',
+    chords: ['E7', ['F7', 'E7']],
+    notes: '1:12:1/3 2:15:1/3 2:12:1/3 3:14:1/3 3:12:1/3 4:14:1/3 4:12:1/3 5:14:1/3 5:12:1/3 6:15:1/3 6:14:1/3 6:12:1/3 ' +
+           '4:7+3:8+2:8+1:8:2@2334 4:6+3:7+2:7+1:7:2s@2334',
+    about: 'The Texas shuffle ending: run down the scale, hit a 9th chord one fret too high (F9), and slide it down to E9. The top four strings of a 9th chord are its 3rd, ♭7, 9th and 5th, so it sounds full without a bass note.',
+    tip: 'Middle on the D string, ring flattened across the G and B strings, pinky on top. Hold the shape and slide the whole hand down one fret, then let it ring.',
+  },
 ];
 
 // ---- parsing --------------------------------------------------------------------------
