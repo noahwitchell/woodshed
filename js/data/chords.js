@@ -1,11 +1,13 @@
 // Movable jazz voicings. Offsets are frets relative to the root's fret, strings 6→1, null = muted.
 // rs = the string the root sits on.
 import { parseChord, fretMidi, chordPcs } from '../theory.js';
+import { fingerNotes } from '../fingering.js';
 
 export const FAMILIES = [
   { id: 'shell', name: 'Shells', blurb: 'Root, 3rd and 7th only. The Freddie Green swing sound: small, punchy, easy to move. Mute every string you are not fretting.' },
   { id: 'four', name: 'Four-note', blurb: 'Full jazz chords with the 5th or 6th added. Your bread and butter for comping.' },
-  { id: 'color', name: 'Colour', blurb: 'Extended chords: 9ths, 13ths and altered dominants. Swap these in for plain 7ths to sound instantly jazzier.' },
+  { id: 'color', name: 'Colour', blurb: 'Extended chords: 9ths, 11ths, 13ths and altered dominants. Swap these in for plain 7ths to sound instantly jazzier.' },
+  { id: 'open', name: 'Open', blurb: 'First-position chords that let open strings ring: the sound of folk, rock and the Beatles. Only some keys have them.' },
 ];
 
 export const SHAPES = [
@@ -38,6 +40,16 @@ export const SHAPES = [
   { fam: 'four', q: 'm6',   rs: 5, o: [null, 0, -2, -1, -2, null] },
   { fam: 'four', q: '',     rs: 5, o: [null, 0, 2, 2, 2, null] },
   { fam: 'four', q: 'm',    rs: 5, o: [null, 0, 2, 2, 1, null] },
+  { fam: 'four', q: '',     rs: 6, o: [0, 2, 2, 1, 0, 0] },
+  { fam: 'four', q: 'm',    rs: 6, o: [0, 2, 2, 0, 0, 0] },
+  { fam: 'four', q: 'sus4', rs: 5, o: [null, 0, 2, 2, 3, 0] },
+  { fam: 'four', q: 'sus4', rs: 6, o: [0, 2, 2, 2, 0, 0] },
+  { fam: 'four', q: 'sus2', rs: 5, o: [null, 0, 2, 2, 0, 0] },
+  { fam: 'four', q: '7sus4', rs: 5, o: [null, 0, 2, 0, 3, 0] },
+  { fam: 'four', q: 'aug',  rs: 5, o: [null, 0, -1, -2, -2, null] },
+  { fam: 'four', q: 'aug',  rs: 6, o: [0, null, 2, 1, 1, null] },
+  { fam: 'four', q: 'mmaj7', rs: 5, o: [null, 0, 2, 1, 1, 0] },
+  { fam: 'four', q: 'mmaj7', rs: 6, o: [0, null, 1, 0, 0, null] },
   // colour
   { fam: 'color', q: '9',    rs: 5, o: [null, 0, -1, 0, 0, 0] },
   { fam: 'color', q: '13',   rs: 6, o: [0, null, 0, 1, 2, null] },
@@ -47,11 +59,31 @@ export const SHAPES = [
   { fam: 'color', q: '7#9',  rs: 5, o: [null, 0, -1, 0, 1, null] },
   { fam: 'color', q: '6/9',  rs: 5, o: [null, 0, -1, -1, 0, 0] },
   { fam: 'color', q: 'm9',   rs: 5, o: [null, 0, -2, 0, 0, null] },
+  { fam: 'color', q: 'maj9', rs: 5, o: [null, 0, -1, 1, 0, null] },
+  { fam: 'color', q: 'm11',  rs: 5, o: [null, 0, 0, 0, 1, 0] },
+  { fam: 'color', q: '7#5',  rs: 5, o: [null, 0, null, 0, 2, 1] },
+  // open chords: fixed frets for one root (pc), strings 6→1
+  ...[
+    [0, '', [null, 3, 2, 0, 1, 0], [null, 3, 2, 0, 1, 0]], [0, '7', [null, 3, 2, 3, 1, 0], [null, 3, 2, 4, 1, 0]], [0, 'maj7', [null, 3, 2, 0, 0, 0], [null, 3, 2, 0, 0, 0]], [0, '6', [null, 3, 2, 2, 1, 0], [null, 4, 2, 3, 1, 0]], [0, 'aug', [null, 3, 2, 1, 1, 0], [null, 4, 3, 1, 1, 0]],
+    [2, '', [null, null, 0, 2, 3, 2], [null, null, 0, 1, 3, 2]], [2, 'm', [null, null, 0, 2, 3, 1], [null, null, 0, 2, 3, 1]], [2, '7', [null, null, 0, 2, 1, 2], [null, null, 0, 2, 1, 3]], [2, 'maj7', [null, null, 0, 2, 2, 2], [null, null, 0, 1, 1, 1]],
+    [2, 'm7', [null, null, 0, 2, 1, 1], [null, null, 0, 2, 1, 1]], [2, 'sus4', [null, null, 0, 2, 3, 3], [null, null, 0, 1, 3, 4]], [2, 'sus2', [null, null, 0, 2, 3, 0], [null, null, 0, 1, 3, 0]],
+    [4, '', [0, 2, 2, 1, 0, 0], [0, 2, 3, 1, 0, 0]], [4, 'm', [0, 2, 2, 0, 0, 0], [0, 2, 3, 0, 0, 0]], [4, '7', [0, 2, 0, 1, 0, 0], [0, 2, 0, 1, 0, 0]], [4, 'm7', [0, 2, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0]], [4, 'sus4', [0, 2, 2, 2, 0, 0], [0, 2, 3, 4, 0, 0]], [4, '7sus4', [0, 2, 0, 2, 0, 0], [0, 2, 0, 3, 0, 0]],
+    [5, '', [1, 3, 3, 2, 1, 1], [1, 3, 4, 2, 1, 1]], [5, 'maj7', [null, null, 3, 2, 1, 0], [null, null, 3, 2, 1, 0]],
+    [7, '', [3, 2, 0, 0, 0, 3], [2, 1, 0, 0, 0, 3]], [7, '7', [3, 2, 0, 0, 0, 1], [3, 2, 0, 0, 0, 1]], [7, '6', [3, 2, 0, 0, 0, 0], [2, 1, 0, 0, 0, 0]],
+    [9, '', [null, 0, 2, 2, 2, 0], [null, 0, 1, 2, 3, 0]], [9, 'm', [null, 0, 2, 2, 1, 0], [null, 0, 2, 3, 1, 0]], [9, '7', [null, 0, 2, 0, 2, 0], [null, 0, 2, 0, 3, 0]], [9, 'm7', [null, 0, 2, 0, 1, 0], [null, 0, 2, 0, 1, 0]], [9, 'maj7', [null, 0, 2, 1, 2, 0], [null, 0, 2, 1, 3, 0]],
+    [9, 'mmaj7', [null, 0, 2, 1, 1, 0], [null, 0, 3, 2, 1, 0]], [9, 'm6', [null, 0, 2, 2, 1, 2], [null, 0, 2, 3, 1, 4]], [9, '6', [null, 0, 2, 2, 2, 2], [null, 0, 1, 1, 1, 1]], [9, 'sus4', [null, 0, 2, 2, 3, 0], [null, 0, 1, 2, 3, 0]], [9, 'sus2', [null, 0, 2, 2, 0, 0], [null, 0, 1, 2, 0, 0]],
+    [11, '7', [null, 2, 1, 2, 0, 2], [null, 2, 1, 3, 0, 4]],
+  ].map(([root, q, f, k]) => ({ fam: 'open', q, root, f, k })),
 ];
 
 // Place a shape for a root pitch class: returns frets per string (6→1) and the root fret.
 // Picks the octave that keeps the lowest fretted note at fret ≥ 1 (or open when it fits) and ≤ 12.
 export function place(shape, rootPc, near = 5) {
+  if (shape.f) {
+    if (shape.root !== rootPc) return null;
+    const used = shape.f.filter(f => f != null), avg = used.reduce((a, b) => a + b, 0) / used.length;
+    return { frets: shape.f, rf: 0, avg, score: Math.abs(avg - near) };
+  }
   const open = shape.rs === 6 ? 40 : 45;
   let best = null;
   for (let rf = 0; rf <= 15; rf++) {
@@ -72,7 +104,7 @@ export const midisOf = frets => frets.map((f, i) => (f == null ? null : fretMidi
 // Best voicing for a chord symbol in a family, near a fret (voice leading for comping).
 export function voicingFor(sym, fam = 'shell', near = 5) {
   const c = parseChord(sym); if (!c) return null;
-  const order = [fam, 'four', 'shell', 'color'];
+  const order = [...new Set([fam, 'four', 'shell', 'color', 'open'])];
   for (const f of order) {
     const cands = SHAPES.filter(s => s.fam === f && s.q === c.q);
     let best = null;
@@ -85,14 +117,39 @@ export function voicingFor(sym, fam = 'shell', near = 5) {
   return null;
 }
 
+// Every way this library can play a chord: the requested family first, nearest the given fret first.
+export function voicingsFor(sym, fam = 'shell', near = 5) {
+  const c = parseChord(sym); if (!c) return [];
+  const out = [];
+  for (const s of SHAPES) {
+    if (s.q !== c.q) continue;
+    const p = place(s, c.root, near); if (!p) continue;
+    out.push({ sym, chord: c, shape: s, frets: p.frets, rf: p.rf, avg: p.avg, midis: midisOf(p.frets), rank: (s.fam === fam ? 0 : 100) + p.score });
+  }
+  return out.sort((a, b) => a.rank - b.rank);
+}
+
+// Fretting fingers for a chord shape (6 entries, string 6 → 1; 0 = open, null = not played).
+// Open chords carry their standard fingering; movable shapes go through the solver.
+export function fingersFor(frets, shape = null) {
+  if (shape?.k) return shape.k;
+  const parts = []; frets.forEach((f, i) => { if (f != null) parts.push({ s: 6 - i, f }); });
+  const fk = fingerNotes([{ b: 0, d: 1, tech: null, p: parts }], { chord: true })[0];
+  if (!fk) return null;
+  return frets.map((f, i) => (f == null ? null : fk.k[parts.findIndex(q => q.s === 6 - i)]));
+}
+
 // Sanity check used by tests: every shape spells only its chord's notes and contains root + 3rd/7th.
 export function checkShapes() {
   const errs = [];
   for (const s of SHAPES) {
-    const root = s.rs === 6 ? 7 : 0; // G or C
+    const root = s.f ? s.root : s.rs === 6 ? 7 : 0; // G or C
     const p = place(s, root, 5);
     if (!p) { errs.push(`${s.fam} ${s.q} rs${s.rs}: no placement`); continue; }
     const pcs = new Set(chordPcs({ root, q: s.q }));
+    const got = new Set(midisOf(p.frets).map(m => m % 12));
+    const need = chordPcs({ root, q: s.q }).slice(0, 2);   // root and 3rd (or sus note)
+    if (!need.every(x => got.has(x))) errs.push(`${s.fam} ${s.q} ${s.root ?? 'rs' + s.rs}: missing root or 3rd`);
     midisOf(p.frets).forEach(m => { if (!pcs.has(m % 12)) errs.push(`${s.fam} ${s.q} rs${s.rs}: stray note ${m}`); });
   }
   return errs;

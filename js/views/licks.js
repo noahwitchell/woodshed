@@ -4,7 +4,7 @@ import { S, save, lickState } from '../store.js';
 import { T, onTransport, swingBeat } from '../clock.js';
 import * as A from '../audio.js';
 import { LICKS, CATS, parseNotes, chordTimeline, shiftNotes } from '../data/licks.js';
-import { TECH, RHYTHM } from '../data/drills.js';
+import { TECH, TCATS, RHYTHM } from '../data/drills.js';
 import { PROGS, COMPS, progById } from '../data/progressions.js';
 import { renderTab, paintTab, unswing } from '../tab.js';
 import { fingerNotes } from '../fingering.js';
@@ -12,9 +12,10 @@ import { compEvents, bassEvents, drumEvents, clickEvents, lickEvents, GROOVES } 
 import { transposeChord, parseChord, pcName, prettyChord, NAME_PC } from '../theory.js';
 import { voicingFor } from '../data/chords.js';
 import { chordBox } from '../diagram.js';
+import { chordPad, tapChart } from '../chordpad.js';
 
 let el, listEl, playerEl, raf = 0;
-let section = 'licks', cat = 'all';
+let section = 'licks', cat = 'all', tcat = 'all';
 let cur = null;    // { item, kind: 'lick'|'tech'|'rhythm', shift, bpm, notes, tl, view }
 
 const P = () => S.player;
@@ -29,7 +30,7 @@ function card(item, kind) {
   return h('button', { class: 'lick-card', onclick: () => open(item, kind) },
     h('div', { class: 'lc-top' }, h('b', {}, item.title), st.fav ? h('span', { class: 'fav-on' }, icon('star')) : null),
     h('div', { class: 'lc-meta' },
-      kind === 'lick' ? h('span', { class: 'tag' }, item.cat) : null,
+      kind !== 'rhythm' && item.cat ? h('span', { class: 'tag' }, item.cat) : null,
       item.key ? h('span', {}, item.key) : kind === 'rhythm' ? h('span', {}, progById(item.prog).name) : null,
       item.level ? levelDots(item.level) : null,
       st.best ? h('span', { class: 'best' }, `✓ ${st.best} BPM`) : null),
@@ -46,10 +47,11 @@ function paintList() {
     listEl.append(h('div', { class: 'cards' }, ...items.map(l => card(l, 'lick'))));
     if (!items.length) listEl.append(h('p', { class: 'hint' }, 'Nothing saved yet. Tap ☆ on a lick to save it here.'));
   } else if (section === 'tech') {
-    listEl.append(h('p', { class: 'hint' }, 'Exercises for your hands: picking, fingering and finding chord tones. Start slow with the click, then speed up.'));
-    listEl.append(h('div', { class: 'cards' }, ...TECH.map(t => card(t, 'tech'))));
+    listEl.append(chips([['all', 'All'], ...TCATS.map(c => [c, c])], tcat, v => { tcat = v; paintList(); }));
+    listEl.append(h('p', { class: 'hint' }, 'Exercises for your hands: picking, fingering, strength and finding chord tones. Start slow with the click, then speed up.'));
+    listEl.append(h('div', { class: 'cards' }, ...TECH.filter(t => tcat === 'all' || t.cat === tcat).map(t => card(t, 'tech'))));
   } else {
-    listEl.append(h('p', { class: 'hint' }, 'Rhythm guitar is half of swing. Strum along with the band, and lock in with the hi-hat on 2 and 4.'));
+    listEl.append(h('p', { class: 'hint' }, 'Rhythm guitar is half of the music. Strum or pick along with the band; tap any chord in a drill’s chart to hear it and see the fingering.'));
     listEl.append(h('div', { class: 'cards' }, ...RHYTHM.map(r => card(r, 'rhythm'))));
   }
 }
@@ -136,11 +138,11 @@ function rhythmProgram() {
               ev.push(...lickEvents(bar2 ? lick.slice(8).map(n => ({ ...n, b: n.b - 4 + c.b + k * 4, p: n.p.map(q => ({ s: q.s - s, f: q.f })) })) : moved, { vol: 0.8 }));
             }
           });
-        } else ev.push(...compEvents(tl, item.comp, { seed: cycle, vol: 0.9, fam: 'shell' }));
+        } else ev.push(...compEvents(tl, item.comp, { seed: cycle, vol: 0.9, fam: COMPS.find(c => c.id === item.comp)?.fam || 'shell' }));
       }
       const G = GROOVES[item.groove];
-      ev.push(...bassEvents(tl, G ? G.bass : item.comp === 'pompe' ? 'two' : 'walk', { seed: cycle }));
-      ev.push(...drumEvents(L, G ? G.drums : item.comp === 'pompe' ? 'brush' : 'ride'));
+      ev.push(...bassEvents(tl, item.bass || (G ? G.bass : item.comp === 'pompe' ? 'two' : 'walk'), { seed: cycle }));
+      ev.push(...drumEvents(L, item.drums || (G ? G.drums : item.comp === 'pompe' ? 'brush' : 'ride')));
       cycle++;
       return { len: L, tag: 'lick', events: ev };
     },
@@ -252,19 +254,15 @@ function buildRhythm() {
   cur.tl = chordTimeline(bars);
   const comp = COMPS.find(c => c.id === item.comp);
   const grid = h('div', { class: 'strum-grid' }, ...item.grid.map((s, i) => h('div', { class: 'sg-cell' + (item.accent.includes(i) ? ' acc' : '') + (s ? ' hit' : '') },
-    h('span', { class: 'sg-count' }, i % 2 ? '&' : String(i / 2 + 1)), h('b', {}, s === 'D' ? '↓' : s === 'U' ? '↑' : s === 'u' ? '↑' : ''))));
-  const chart = h('div', { class: 'chart' }, ...bars.map((b, i) => h('div', { class: 'bar', 'data-bar': i }, ...(Array.isArray(b) ? b : [b]).map(c => h('span', {}, prettyChord(c))))));
-  const shape = h('div', { class: 'shape-box' });
+    h('span', { class: 'sg-count' }, i % 2 ? '&' : String(i / 2 + 1)), s && !'DUu'.includes(s) ? h('b', { class: 'txt' }, s) : h('b', {}, s === 'D' ? '↓' : s === 'U' ? '↑' : s === 'u' ? '↑' : ''))));
+  const fam = comp?.fam || (item.comp === 'pompe' ? 'four' : 'shell');
+  const pad = chordPad({ fam: () => fam, keyPc: () => NAME_PC[cur.key] ?? 0 });
+  const chart = tapChart(bars, sym => pad.select(sym, { sound: true }));
   const playBtn = h('button', { class: 'play-big', onclick: play });
   const bpmStep = stepper({ value: cur.bpm, min: 40, max: 300, step: 5, fmt: v => `${v} BPM`, onChange: v => { cur.bpm = v; if (T.owner === OWNER && T.playing) T.setBpm(v); } });
   const keys = item.lick ? null : h('select', { class: 'select', onchange: e => { cur.key = e.target.value; restart(); } },
     ...['C', 'Db', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'Ab', 'A', 'Bb', 'B'].map(k => h('option', { value: k, selected: k === cur.key }, k.replace('b', '♭').replace('#', '♯'))));
-  let lastSym = null;
-  const showShape = sym => {
-    if (sym === lastSym) return; lastSym = sym;
-    const v = voicingFor(sym, item.comp === 'pompe' ? 'four' : 'shell', 5);
-    shape.innerHTML = v ? `<div class="shape-name">${prettyChord(sym)}</div>${chordBox(v.frets, v.chord, { size: 1.2 })}` : '';
-  };
+  const showShape = sym => pad.select(sym);
   showShape(cur.tl[0].sym);
   playerEl.replaceChildren(
     h('div', { class: 'player-head' },
@@ -273,7 +271,8 @@ function buildRhythm() {
       h('span')),
     h('p', { class: 'about' }, item.about),
     grid, chart,
-    item.lick ? h('p', { class: 'hint' }, 'Riff shape: A7 = strings 5 + 4 · D7 = strings 4 + 3 · E7 = strings 6 + 5') : shape,
+    ...(item.lick ? [h('p', { class: 'hint' }, 'Riff shape: A7 = strings 5 + 4 · D7 = strings 4 + 3 · E7 = strings 6 + 5')]
+      : [h('p', { class: 'dim small center' }, 'Tap a chord in the chart to hear it and see the fingering.'), pad]),
     h('div', { class: 'row center gap' }, playBtn),
     h('div', { class: 'row center gap wrap' }, bpmStep, keys ? h('div', { class: 'field' }, h('label', {}, 'Key'), keys) : null),
     h('div', { class: 'tog-grid' },

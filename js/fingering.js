@@ -19,7 +19,7 @@ function options(n, P) {
     for (let k = 1; k <= 4; k++) {
       if (pin && pin !== k) continue;
       const dev = q.f - (P + k - 1);
-      if (dev === 0 || (k === 1 && dev === -1) || (k === 4 && dev === 1) || (Math.abs(dev) === 1 && parts.some((o, j) => j !== i && o.f === q.f))) out.push({ k, dev });
+      if (dev === 0 || (k === 1 && dev === -1) || (k === 4 && dev === 1) || (pin && Math.abs(dev) === 1) || (Math.abs(dev) === 1 && parts.some((o, j) => j !== i && o.f === q.f))) out.push({ k, dev });
     }
     return out;
   });
@@ -42,7 +42,7 @@ function options(n, P) {
   return res;
 }
 
-function noteCost(n, opt) {
+function noteCost(n, opt, chord = false) {
   let c = 0;
   opt.forEach(o => {
     if (o.dev) c += 0.7;
@@ -57,8 +57,16 @@ function noteCost(n, opt) {
   for (let a = 0; a < opt.length; a++) for (let b = a + 1; b < opt.length; b++) {
     const A = opt[a], B = opt[b], qa = n.p[a], qb = n.p[b];
     if (!A.k || !B.k) continue;
-    if (A.k === B.k && Math.abs(qa.s - qb.s) > 1) c += 1.5;
+    if (!chord && A.k === B.k && Math.abs(qa.s - qb.s) > 1) c += 1.5;
     if (Math.abs(qa.f - qb.f) > Math.abs(A.k - B.k)) c += 1;
+  }
+  // chord shapes: a barre is fine for the index (or when it covers 3+ strings); other fingers
+  // only flatten across strings when they must
+  if (chord) for (let k = 1; k <= 4; k++) {
+    const ss = opt.map((o, i) => (o.k === k ? n.p[i].s : null)).filter(x => x != null);
+    if (ss.length < 2) continue;
+    const skip = Math.max(...ss) - Math.min(...ss) + 1 > ss.length;
+    c += k === 1 ? (skip && ss.length < 3 ? 1 : 0.2) : 1 + (skip ? 1.5 : 0);
   }
   return c;
 }
@@ -98,13 +106,13 @@ function moveCost(prev, cur, prevOpt, opt, P0, P1, gap) {
 }
 
 // notes: parsed lick notes. Returns [{ k: [finger per part], shift: bool }] (null for rests).
-export function fingerNotes(notes) {
+export function fingerNotes(notes, { chord = false } = {}) {
   const idx = notes.map((n, i) => (n.rest ? -1 : i)).filter(i => i >= 0);
   if (!idx.length) return notes.map(() => null);
   // gap before each sounding note = time since the previous sounding note started
   const gapOf = j => notes[idx[j]].b - notes[idx[j - 1]].b;
   let layer = [];
-  for (let P = 1; P <= MAXP; P++) for (const opt of options(notes[idx[0]], P)) layer.push({ P, opt, cost: noteCost(notes[idx[0]], opt), back: null });
+  for (let P = 1; P <= MAXP; P++) for (const opt of options(notes[idx[0]], P)) layer.push({ P, opt, cost: noteCost(notes[idx[0]], opt, chord), back: null });
   const layers = [layer];
   for (let j = 1; j < idx.length; j++) {
     const n = notes[idx[j]], prev = notes[idx[j - 1]], gap = gapOf(j);

@@ -29,8 +29,16 @@ export const QUAL = {
   '7#9':  { iv: [0, 4, 7, 10, 15], name: 'dominant 7♯9' },
   '6/9':  { iv: [0, 4, 7, 9, 14], name: 'six-nine' },
   'm9':   { iv: [0, 3, 7, 10, 14], name: 'minor 9' },
+  'maj9': { iv: [0, 4, 7, 11, 14], name: 'major 9' },
+  'm11':  { iv: [0, 3, 7, 10, 14, 17], name: 'minor 11' },
+  '7#5':  { iv: [0, 4, 8, 10], name: 'dominant 7♯5' },
+  'aug':  { iv: [0, 4, 8], name: 'augmented' },
+  'mmaj7': { iv: [0, 3, 7, 11], name: 'minor-major 7' },
+  'sus4': { iv: [0, 5, 7], name: 'suspended 4th' },
+  'sus2': { iv: [0, 2, 7], name: 'suspended 2nd' },
+  '7sus4': { iv: [0, 5, 7, 10], name: 'dominant 7 sus4' },
 };
-export const isDominant = q => ['7', '9', '13', '7b9', '7#9'].includes(q);
+export const isDominant = q => ['7', '9', '13', '7b9', '7#9', '7#5', '7sus4'].includes(q);
 
 export function parseChord(sym) {
   const m = /^([A-G][b#]?)(.*)$/.exec(sym || '');
@@ -42,7 +50,7 @@ export const chordPcs = c => QUAL[c.q].iv.map(i => (c.root + i) % 12);
 // Pretty chord symbol for display (♭ ♯ ° ø).
 export function prettyChord(sym) {
   return (sym || '').replace(/^([A-G])b/, '$1♭').replace(/^([A-G])#/, '$1♯')
-    .replace('m7b5', 'm7♭5').replace('dim7', '°7').replace('7b9', '7♭9').replace('7#9', '7♯9');
+    .replace('mmaj7', 'm(maj7)').replace('m7b5', 'm7♭5').replace('dim7', '°7').replace('7b9', '7♭9').replace('7#9', '7♯9').replace('7#5', '7♯5').replace(/aug$/, '+');
 }
 
 // Transpose a chord symbol by n semitones, spelled for the new key.
@@ -60,10 +68,10 @@ export function degreeLabel(midi, chord) {
   switch (d) {
     case 0: return 'R';
     case 1: return '♭9';
-    case 2: return '9';
+    case 2: return chord.q === 'sus2' ? '2' : '9';
     case 3: return '♭3';
     case 4: return '3';
-    case 5: return '11';
+    case 5: return chord.q.includes('sus4') ? '4' : '11';
     case 6: return has(6) ? '♭5' : '♯11';
     case 7: return '5';
     case 8: return has(7) ? '♭13' : '♯5';

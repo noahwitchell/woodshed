@@ -1,12 +1,12 @@
 // Chord box diagram (SVG). frets: 6 entries, string 6 → 1, null = muted.
 import { fretMidi, degreeLabel, degreeKind } from './theory.js';
 
-export function chordBox(frets, chord, { size = 1, labels = true, rootFret = null } = {}) {
+export function chordBox(frets, chord, { size = 1, labels = true, rootFret = null, fingers = null } = {}) {
   const used = frets.filter(f => f != null && f > 0);
   const lo = used.length ? Math.min(...used) : 1, hi = used.length ? Math.max(...used) : 1;
   const span = Math.max(4, hi - lo + 1);
   const base = hi <= 4 ? 1 : lo;
-  const W = 108, H = 128, x0 = 28, y0 = 26, gw = 70, gh = 88;
+  const W = 108, H = fingers ? 142 : 128, x0 = 28, y0 = 26, gw = 70, gh = 88;
   const sx = i => x0 + (i * gw) / 5, fy = k => y0 + (k * gh) / span;
   let o = `<svg class="cbox" viewBox="0 0 ${W} ${H}" width="${W * size}" height="${H * size}">`;
   if (base === 1) o += `<rect class="cb-nut" x="${x0 - 1}" y="${y0 - 4}" width="${gw + 2}" height="4"/>`;
@@ -24,6 +24,8 @@ export function chordBox(frets, chord, { size = 1, labels = true, rootFret = nul
     o += `<circle class="cb-dot k-${kind}" cx="${x}" cy="${y}" r="7.6"/>`;
     if (labels) o += `<text class="cb-lab" x="${x}" y="${y + 3.4}">${lab}</text>`;
   });
+  // fretting fingers under each string (1 index … 4 pinky)
+  if (fingers) frets.forEach((f, i) => { const k = fingers[i]; if (f != null && f > 0 && k) o += `<text class="cb-fing" x="${sx(i)}" y="${y0 + gh + 18}">${k}</text>`; });
   o += '</svg>';
   return o;
 }

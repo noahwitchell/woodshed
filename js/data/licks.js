@@ -11,7 +11,7 @@
 // Beats: 1 = quarter, .5 = 8th, 1/3 = triplet 8th. Bars are 4/4. Chords: one entry per bar,
 // or an array for two chords in a bar.
 
-export const CATS = ['Classics', 'Swing blues', 'Blues', 'SRV', 'Bebop', 'ii–V–I', 'Gypsy jazz', 'Riffs', 'Turnarounds & endings'];
+export const CATS = ['Classics', 'Swing blues', 'Blues', 'SRV', 'Beatles', 'Bebop', 'ii–V–I', 'Gypsy jazz', 'Riffs', 'Turnarounds & endings'];
 
 export const LICKS = [
   {
@@ -840,6 +840,97 @@ export const LICKS = [
     notes: '1:8:.5 2:10:.5 3:10:.5 3:8:.5 3:7:.5 2:7:.5 2:10:.5 1:8:.5 1:10:.5 2:11:.5 2:8:.5 3:10:.5 3:9:.5 2:8:.5 2:11:.5 2:10:.5',
     about: 'Jazz-blues players swap the plain turnaround for I–VI–ii–V: F7, D7, Gm7, C7. Each chord gets two beats of its own notes: down F7, up D7 through F♯, down Gm7, then up C7 through E and B♭ to land on A, the 3rd of F.',
     tip: 'Learn the four chords as shapes first, then play the line slowly and say each chord name as it changes.',
+  },
+  // ---- Beatles ---------------------------------------------------------------------------
+  {
+    id: 'perkins-e', title: 'Carl Perkins rockabilly', cat: 'Beatles', level: 2, bpm: 130, key: 'E', groove: 'shuffle',
+    chords: ['E', 'E'],
+    notes: '3:0:.5 3:1:.5h 2:0+1:0:1 3:2:.5 3:1:.5 3:0:.5 4:2:.5 6:0+4:2+3:1:1 r:1 3:1+2:0:.5 3:1+2:0:.5 4:2:1',
+    about: 'George Harrison’s first guitar hero was Carl Perkins, and the Beatles recorded three of his songs. The rockabilly sound: G hammered up to G♯ (the blue 3rd to the real 3rd) under the open B and E strings, ringing like a little chord.',
+    tip: 'Let the open strings ring into each other. Pick the G and hammer the G♯; pick the B and E together.',
+  },
+  {
+    id: 'pedal-bends', title: 'Pedal-steel bends', cat: 'Beatles', level: 3, bpm: 96, key: 'A', groove: 'rock',
+    chords: ['A', 'D'],
+    notes: '3:4+2:5:1b2 3:4+2:5:.5u 3:2:.5 4:2:.5 4:4:.5 3:2:1 3:2+2:3:1b2 3:2+2:3:.5u 2:3:.5 1:2:2',
+    about: 'George borrowed country players’ trick of copying a pedal steel guitar: bend one string while the string next to it holds still. Over A, B bends up to C♯ (the 3rd) under a steady E; over D, A bends up to B (the 6th) under a steady D.',
+    tip: 'Push the G string up with the bending finger and its helpers, and keep the B-string note pressed without letting it get dragged along.',
+  },
+  {
+    id: 'sus-hammers', title: 'Sus hammer-ons, I–♭VII–IV', cat: 'Beatles', level: 2, bpm: 100, key: 'D', groove: 'rock',
+    chords: ['D', 'C', 'G', 'D'],
+    notes: '4:0+3:2+2:3+1:2:1 1:3:.5h@4 1:2:.5p 1:0:.5p 1:2:.5h 4:0+3:2+2:3+1:2:1 ' +
+           '5:3+4:2+3:0+2:1+1:0:1 4:3:.5h@4 4:2:.5p 4:0:.5p 4:2:.5h 5:3+4:2+3:0+2:1+1:0:1 ' +
+           '6:3+5:2+4:0+3:0+2:0+1:3:1 2:1:.5h 2:0:.5p 2:1:.5h 2:0:.5p 6:3+5:2+4:0+3:0+2:0+1:3:1 ' +
+           '4:0+3:2+2:3+1:2:2 1:3:.5h@4 1:2:.5p 4:0+3:2+2:3+1:2:1',
+    about: 'Hold an open chord and let a spare finger hammer the 4th on and off (the “sus” chord) and pull off to the 2nd. On D it is G and E around F♯; on C it is F and D around E; on G it is C around B. The progression D, C, G uses C, the ♭VII, borrowed from D Mixolydian: a sound all over the later Beatles records.',
+    tip: 'Keep the chord shape pressed down the whole time and only move one finger. Strum the chord, then pick the hammer-ons on one string.',
+  },
+  {
+    id: 'major-ii7', title: 'The major II chord', cat: 'Beatles', level: 1, bpm: 110, key: 'G', groove: 'rock',
+    chords: ['G', 'A7', 'C', 'G'],
+    notes: '4:0:.5 3:0:.5 2:0:.5 1:3:1 2:0:.5 2:1:.5 2:3:.5 3:2:.5 2:2:.5 1:0:.5 2:2:.5 3:0:1 3:2:1 ' +
+           '2:1:1 1:0:.5 2:1:.5 3:0:.5 3:2:.5 2:1:1 2:0:1 3:0:1 6:3+5:2+4:0+3:0+2:0+1:3:2',
+    about: 'In the key of G the ii chord should be A minor, but the Beatles kept making it major: A7. Its C♯ is outside the key and gives a bright lift, then falls back to C when the IV chord arrives. Listen to “Eight Days a Week” for this exact move.',
+    tip: 'Turn on Degrees: the C♯ over A7 shows as its 3rd. Lean on it, then hear it drop to C natural.',
+  },
+  {
+    id: 'borrowed-iv', title: 'The borrowed minor iv', cat: 'Beatles', level: 1, bpm: 80, key: 'G', groove: 'rock',
+    chords: ['G', 'C', 'Cm', 'G'],
+    notes: '1:3:2 2:3:1 2:0:1 1:0:2 2:1:1 3:0:1 2:4:2 2:1:1 3:0:1 2:3:1 2:0:1 3:0:2',
+    about: 'C major turns into C minor for one bar: its E drops to E♭, a note borrowed from G minor. That one-note change is the bittersweet sound in “In My Life” and many other Lennon and McCartney songs. The melody here just follows the chord tones so you hear E become E♭.',
+    tip: 'Play bars two and three slowly, back and forth, until you can sing the E and the E♭.',
+  },
+  {
+    id: 'minor-line', title: 'Falling line in minor', cat: 'Beatles', level: 2, bpm: 76, key: 'A minor', groove: 'rock',
+    chords: ['Am', 'Ammaj7', 'Am7', 'Am6'],
+    notes: '5:0:.5 4:2:.5@2 3:2:.5@3 2:1:.5@1 1:0:.5 2:1:.5 3:2:.5 4:2:.5 5:0:.5 4:2:.5 3:1:.5 2:1:.5 1:0:.5 2:1:.5 3:1:.5 4:2:.5 ' +
+           '5:0:.5 4:2:.5 3:0:.5 2:1:.5 1:0:.5 2:1:.5 3:0:.5 4:2:.5 5:0:.5 4:4:.5 3:2:.5 2:1:.5 1:0:.5 2:1:.5 3:2:.5 4:4:.5',
+    about: 'Hold A minor and let one voice walk down by half steps: A, G♯, G, F♯. The chord names change (Am, Am(maj7), Am7, Am6) but it is really one chord with a moving line inside it. The Beatles used this line in minor-key ballads, and “Something” does the same thing in major.',
+    tip: 'Only one finger moves each bar: the G string goes 2, 1, open, then the F♯ moves to the D string at the 4th fret. Let everything ring.',
+  },
+  {
+    id: 'major-line', title: 'Rising line through C+', cat: 'Beatles', level: 2, bpm: 80, key: 'C', groove: 'rock',
+    chords: ['C', 'Caug', 'C6', 'C7'],
+    notes: '5:3:.5 4:2:.5 3:0:.5 2:1:.5 1:0:.5 2:1:.5 3:0:.5 4:2:.5 5:3:.5 4:2:.5 3:1:.5 2:1:.5 1:0:.5 2:1:.5 3:1:.5 4:2:.5 ' +
+           '5:3:.5 4:2:.5 3:2:.5 2:1:.5 1:0:.5 2:1:.5 3:2:.5 4:2:.5 5:3:.5 4:2:.5 3:3:.5@4 2:1:.5 1:0:.5 2:1:.5 3:3:.5@4 4:2:.5',
+    about: 'The same trick going up: the 5th of C climbs G, G♯, A, B♭ and the chord becomes C, C+ (augmented), C6, C7. The augmented chord was a favourite Beatles passing chord, and C7 at the end pulls you on to F.',
+    tip: 'Hold the open C shape and move only the G string: open, 1st fret, 2nd, 3rd (use the pinky for the 3rd).',
+  },
+  {
+    id: 'slide-melody', title: 'Slide-style melody', cat: 'Beatles', level: 2, bpm: 70, key: 'D', groove: 'rock',
+    chords: ['D', 'G'],
+    notes: '2:3:.5@3 2:5:.5s@3 2:7:2v@3 2:5:.5@3 2:3:.5@3 2:8:1s@3 2:7:.5@3 2:5:.5@3 2:3:2v@3',
+    about: 'Later on George played slide guitar like a singer: a melody on one string, gliding into each note and then holding it with vibrato. Here it is on the B string with a finger instead of a slide: D, E, F♯ over D, then G sliding down to D over the G chord.',
+    tip: 'Use the ring finger for every note and slide it along the string, so you hear the glide. Keep the pressure on as you slide or the note dies.',
+  },
+  {
+    id: 'jangle-arps', title: 'Jangle arpeggios with sus notes', cat: 'Beatles', level: 1, bpm: 92, key: 'D', groove: 'rock',
+    chords: ['D', 'G'],
+    notes: '4:0:.5 3:2:.5@1 2:3:.5@3 1:2:.5@2 1:3:.5h@4 1:2:.5p@2 2:3:.5@3 3:2:.5@1 6:3:.5 4:0:.5 3:0:.5 2:0:.5 1:3:.5 2:0:.5 2:1:.5h 2:0:.5p',
+    about: 'George’s 12-string Rickenbacker made picked chords ring like bells. Pick the open chord one string at a time and let a free finger hammer the 4th on and off: G on top of D, C on top of G.',
+    tip: 'Hold the whole chord shape before picking, and let every string ring. Hammer and pull off with the pinky on D, the index on G.',
+  },
+  {
+    id: 'doowop-bass', title: 'Melodic bass line, I–vi–IV–V', cat: 'Beatles', level: 1, bpm: 100, key: 'C', groove: 'rock',
+    chords: ['C', 'Am', 'F', 'G'],
+    notes: '5:3:1 4:2:1 5:3:.5 4:2:.5 5:2:1 5:0:1 4:2:1 5:0:1 6:3:1 6:1:1 5:3:1 4:3:1 5:3:1 6:3:1 5:2:1 4:0:1 5:2:1',
+    about: 'Paul McCartney made the bass sing instead of just thumping roots. On guitar: roots and 5ths on the low strings, with passing notes that lead into the next chord (B up to A, G down to F) through the doo-wop progression C, Am, F, G.',
+    tip: 'Play it with the band’s bass turned off in your head: it should sound like a tune on its own.',
+  },
+  {
+    id: 'chet-thumb', title: 'Chet Atkins thumb picking', cat: 'Beatles', level: 3, bpm: 84, key: 'C', groove: 'rock',
+    chords: ['C', 'G'],
+    notes: '5:3+2:1:.5 1:0:.5 4:2:.5 2:1:.5 5:3+1:3:.5@34 2:1:.5 4:2:.5 1:0:.5 6:3+1:3:.5@23 2:0:.5 4:0:.5 3:0:.5 6:3+2:0:.5@20 1:3:.5 4:0:.5 2:0:.5',
+    about: 'Chet Atkins was George’s other big hero: the thumb plays a steady bass on every beat (alternating two strings) while the fingers pick a melody on top. It is the Travis picking pattern from the Rhythm tab, with a tune added.',
+    tip: 'Thumb on the beats: C then E on the A and D strings, G then D on the low E and D strings. Fingers play the notes in between.',
+  },
+  {
+    id: 'flat6-ending', title: '♭VI–♭VII–I ending', cat: 'Beatles', level: 1, bpm: 96, key: 'C', groove: 'rock',
+    chords: ['C', 'Ab', 'Bb', 'C'],
+    notes: '2:1:1 1:0:1 2:1:1 3:0:1 2:1:1 3:1:1 2:4:2 2:3:1 3:3:1 1:1:2 5:3+4:2+3:0+2:1+1:0:4',
+    about: 'A♭ and B♭ are borrowed from C minor, and climbing through them back to C makes a big, triumphant ending. The line keeps C over A♭ (its 3rd), adds A♭ and E♭, then D, B♭ and F over B♭, and lands on a C chord.',
+    tip: 'Strum the last chord hard and let it ring out. Then try it with the band on the ♭VI–♭VII–I progression in Jam.',
   },
 ];
 

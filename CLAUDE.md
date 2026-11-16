@@ -30,4 +30,13 @@
   `groove: 'shuffle' | 'slow' | 'rock'` (GROOVES in js/backing.js: boogie bass, snare backbeat, swing 0.67 / 0.5).
   Cats 'Blues' (SRV's influences) and 'SRV'. Sextuplets (1/6) are fine: the tab gives half a bar per row
   to anything faster than triplets. Content rule still applies: idioms in an artist's style, never a song's riff.
+- Chords: `js/data/chords.js` SHAPES are movable (offsets from the root fret) or, for the 'open' family, fixed
+  frets for one root with a standard fingering `k`. `voicingsFor` lists every shape for a chord, `fingersFor` gives
+  finger numbers (open = `k`, movable = the solver in chord mode). `js/chordpad.js`: tap-a-chord charts + chord pad
+  (diagram with fingers, notes and their jobs, strum / one string at a time / other shape), used by rhythm drills and Jam.
+- Progressions have a `style` (STYLES: Jazz / Blues / Gypsy jazz / Pop & rock); Jam filters by it. COMPS can carry
+  `fam` and `swing` (bossa / folk / travis / arp are straight 8ths). RHYTHM drills may set `bass`, `drums`, `swing`;
+  grid cells: D/U/u arrows, anything else (T thumb, F finger, P pinch, string numbers) is shown as text.
+- TECH drills have a `cat` (TCATS). Lick cat 'Beatles' = harmony lessons + Harrison-style idioms (no song riffs).
+  A pinned finger may sit one fret off the hand position (open-chord fingerings).
 - App icon: `icons/icon.svg` uses Noah's f-hole vector (`tools/fhole-source.svg`); `tools/render_icons.sh` makes the PNGs.

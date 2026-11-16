@@ -17,6 +17,7 @@ export function compEvents(tl, style, { fam = 'shell', seed = 1, vol = 1 } = {})
     if (v) near = v.avg;
     return { ...c, v };
   });
+  const note = (b, m, len, vel) => m != null && ev.push({ b, len, kind: 'comp', play: (t, d) => A.pluck(m, t, { vel: vel * vol, len: Math.max(d, 0.3) }) });
   const hit = (b, v, len, vel, up = false) => v && ev.push({ b, len, kind: 'comp', play: (t, dur) => A.strum(v.midis, t, { vel: vel * vol, len: dur, up }) });
   const bars = Math.ceil(tl.reduce((a, c) => Math.max(a, c.b + c.len), 0) / 4);
   const at = b => voiced.find(c => b >= c.b - 1e-6 && b < c.b + c.len - 1e-6) || voiced[voiced.length - 1];
@@ -40,6 +41,35 @@ export function compEvents(tl, style, { fam = 'shell', seed = 1, vol = 1 } = {})
       if (!pick.length) pick.push(spots[r() < 0.5 ? 0 : 3]);
       pick.forEach(([o, l]) => hit(B + o, (o === 3.5 ? nextBar : at(B + o)).v, l, 0.45 + r() * 0.15, o % 1 !== 0 && r() < 0.5));
     }
+    else if (style === 'bossa') {
+      // thumb on 1 and 3 (root, then the next string up), fingers on a two-bar syncopation
+      const spots = bar % 2 ? [1, 2.5] : [0, 1.5, 3];
+      for (const k of [0, 2]) { const v = at(B + k).v; if (v) note(B + k, v.midis[k ? 1 : 0], 0.9, 0.42); }
+      spots.forEach(o => { const v = at(B + o).v; if (v) ev.push({ b: B + o, len: 0.45, kind: 'comp', play: (t, d) => A.strum(v.midis.slice(1), t, { vel: 0.4 * vol, len: d, spread: 0.006 }) }); });
+    }
+    else if (style === 'folk') {
+      // D . D U . U D U
+      [[0, 0.52, false], [1, 0.46, false], [1.5, 0.34, true], [2.5, 0.36, true], [3, 0.46, false], [3.5, 0.34, true]].forEach(([o, vel, up]) => hit(B + o, at(B + o).v, 0.5, vel, up));
+    }
+    else if (style === 'travis') {
+      // thumb alternates two bass strings on every beat; fingers pick the top strings in between
+      for (let k = 0; k < 4; k++) {
+        const v = at(B + k).v; if (!v) continue;
+        const m = v.midis, n = m.length;
+        note(B + k, m[k % 2 ? (n >= 5 ? 2 : 1) : 0], 0.5, 0.5);
+        if (k === 0) note(B, m[n - 1], 0.5, 0.36);
+        note(B + k + 0.5, m[n - 1 - (k % 2)], 0.5, 0.32);
+      }
+    }
+    else if (style === 'arp') {
+      // up and back down the chord in 8ths, one note at a time, letting them ring
+      for (let e = 0; e < 8; e++) {
+        const v = at(B + e / 2).v; if (!v) continue;
+        const m = v.midis, n = m.length, path = [...m.keys(), ...[...m.keys()].reverse().slice(1, -1)];
+        note(B + e / 2, m[path[e % path.length]], 1.6, 0.4);
+      }
+    }
+    else if (style === 'chops') { hit(B + 1, at(B + 1).v, 0.16, 0.55); hit(B + 3, at(B + 3).v, 0.16, 0.55); }
   }
   return ev;
 }
