@@ -37,6 +37,9 @@
 - Progressions have a `style` (STYLES: Jazz / Blues / Gypsy jazz / Pop & rock); Jam filters by it. COMPS can carry
   `fam` and `swing` (bossa / folk / travis / arp are straight 8ths). RHYTHM drills may set `bass`, `drums`, `swing`;
   grid cells: D/U/u arrows, anything else (T thumb, F finger, P pinch, string numbers) is shown as text.
+  Rhythm tab = Rhythm drills | Progressions (every PROGS entry as a card, default rhythm per style in licks.js
+  STYLE_COMP / PROG_COMP). Inside the player, Progression + Rhythm menus mix any changes with any comp style;
+  a chosen style borrows grid / band / tip from the drill that teaches it (`drillFor`).
 - TECH drills have a `cat` (TCATS). Lick cat 'Beatles' = harmony lessons + Harrison-style idioms (no song riffs).
   A pinned finger may sit one fret off the hand position (open-chord fingerings).
 - App icon: `icons/icon.svg` uses Noah's f-hole vector (`tools/fhole-source.svg`); `tools/render_icons.sh` makes the PNGs.
