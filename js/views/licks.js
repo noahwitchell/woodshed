@@ -5,7 +5,7 @@ import { T, onTransport, swingBeat } from '../clock.js';
 import * as A from '../audio.js';
 import { LICKS, CATS, parseNotes, chordTimeline, shiftNotes } from '../data/licks.js';
 import { TECH, TCATS, RHYTHM } from '../data/drills.js';
-import { PROGS, COMPS, progById } from '../data/progressions.js';
+import { PROGS, COMPS, STYLES, progById } from '../data/progressions.js';
 import { renderTab, paintTab, unswing } from '../tab.js';
 import { fingerNotes } from '../fingering.js';
 import { compEvents, bassEvents, drumEvents, clickEvents, lickEvents, GROOVES } from '../backing.js';
@@ -245,7 +245,8 @@ function restart() {
 
 function buildRhythm() {
   const { item } = cur;
-  const prog = progById(item.prog);
+  cur.prog ??= item.prog;
+  const prog = progById(item.lick ? item.prog : cur.prog);
   cur.guitar ??= true;
   cur.key ??= prog.key;
   const n = NAME_PC[cur.key] - NAME_PC[prog.key];
@@ -262,6 +263,10 @@ function buildRhythm() {
   const bpmStep = stepper({ value: cur.bpm, min: 40, max: 300, step: 5, fmt: v => `${v} BPM`, onChange: v => { cur.bpm = v; if (T.owner === OWNER && T.playing) T.setBpm(v); } });
   const keys = item.lick ? null : h('select', { class: 'select', onchange: e => { cur.key = e.target.value; restart(); } },
     ...['C', 'Db', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'Ab', 'A', 'Bb', 'B'].map(k => h('option', { value: k, selected: k === cur.key }, k.replace('b', '♭').replace('#', '♯'))));
+  // any progression can be played with this rhythm
+  const progSel = item.lick ? null : h('select', { class: 'select prog-select', onchange: e => { cur.prog = e.target.value; cur.key = progById(cur.prog).key; restart(); } },
+    ...STYLES.map(st => h('optgroup', { label: st }, ...PROGS.filter(x => x.style === st).map(x =>
+      h('option', { value: x.id, selected: x.id === cur.prog }, x.name + (x.id === item.prog ? ' (this drill’s)' : ''))))));
   const showShape = sym => pad.select(sym);
   showShape(cur.tl[0].sym);
   playerEl.replaceChildren(
@@ -270,6 +275,7 @@ function buildRhythm() {
       h('div', { class: 'ph-title' }, h('b', {}, item.title), h('span', { class: 'dim small' }, prog.name)),
       h('span')),
     h('p', { class: 'about' }, item.about),
+    ...(progSel ? [h('div', { class: 'field col' }, h('label', {}, 'Progression'), progSel), h('p', { class: 'dim small' }, prog.about)] : []),
     grid, chart,
     ...(item.lick ? [h('p', { class: 'hint' }, 'Riff shape: A7 = strings 5 + 4 · D7 = strings 4 + 3 · E7 = strings 6 + 5')]
       : [h('p', { class: 'dim small center' }, 'Tap a chord in the chart to hear it and see the fingering.'), pad]),

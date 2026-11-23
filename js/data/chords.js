@@ -27,39 +27,39 @@ export const SHAPES = [
   { fam: 'four', q: 'maj7', rs: 6, o: [0, null, 1, 1, 0, null] },
   { fam: 'four', q: '7',    rs: 6, o: [0, null, 0, 1, 0, null] },
   { fam: 'four', q: 'm7',   rs: 6, o: [0, null, 0, 0, 0, null] },
-  { fam: 'four', q: 'm7b5', rs: 6, o: [0, null, 0, 0, -1, null] },
-  { fam: 'four', q: 'dim7', rs: 6, o: [0, null, -1, 0, -1, null] },
-  { fam: 'four', q: '6',    rs: 6, o: [0, null, -1, 1, 0, null] },
-  { fam: 'four', q: 'm6',   rs: 6, o: [0, null, -1, 0, 0, null] },
+  { fam: 'four', q: 'm7b5', rs: 6, o: [0, null, 0, 0, -1, null], k: [2, null, 3, 4, 1, null] },
+  { fam: 'four', q: 'dim7', rs: 6, o: [0, null, -1, 0, -1, null], k: [2, null, 1, 3, 1, null] },
+  { fam: 'four', q: '6',    rs: 6, o: [0, null, -1, 1, 0, null], k: [2, null, 1, 4, 3, null] },
+  { fam: 'four', q: 'm6',   rs: 6, o: [0, null, -1, 0, 0, null], k: [2, null, 1, 3, 4, null] },
   { fam: 'four', q: 'maj7', rs: 5, o: [null, 0, 2, 1, 2, null] },
   { fam: 'four', q: '7',    rs: 5, o: [null, 0, 2, 0, 2, null] },
-  { fam: 'four', q: 'm7',   rs: 5, o: [null, 0, 2, 0, 1, null] },
+  { fam: 'four', q: 'm7',   rs: 5, o: [null, 0, 2, 0, 1, null], k: [null, 1, 3, 1, 2, null] },
   { fam: 'four', q: 'm7b5', rs: 5, o: [null, 0, 1, 0, 1, null] },
   { fam: 'four', q: 'dim7', rs: 5, o: [null, 0, 1, -1, 1, null] },
-  { fam: 'four', q: '6',    rs: 5, o: [null, 0, 2, -1, 2, null] },
+  { fam: 'four', q: '6',    rs: 5, o: [null, 0, 2, -1, 2, null], k: [null, 2, 3, 1, 4, null] },
   { fam: 'four', q: 'm6',   rs: 5, o: [null, 0, -2, -1, -2, null] },
   { fam: 'four', q: '',     rs: 5, o: [null, 0, 2, 2, 2, null] },
   { fam: 'four', q: 'm',    rs: 5, o: [null, 0, 2, 2, 1, null] },
   { fam: 'four', q: '',     rs: 6, o: [0, 2, 2, 1, 0, 0] },
   { fam: 'four', q: 'm',    rs: 6, o: [0, 2, 2, 0, 0, 0] },
-  { fam: 'four', q: 'sus4', rs: 5, o: [null, 0, 2, 2, 3, 0] },
-  { fam: 'four', q: 'sus4', rs: 6, o: [0, 2, 2, 2, 0, 0] },
+  { fam: 'four', q: 'sus4', rs: 5, o: [null, 0, 2, 2, 3, 0], k: [null, 1, 2, 3, 4, 1] },
+  { fam: 'four', q: 'sus4', rs: 6, o: [0, 2, 2, 2, 0, 0], k: [1, 2, 3, 4, 1, 1] },
   { fam: 'four', q: 'sus2', rs: 5, o: [null, 0, 2, 2, 0, 0] },
   { fam: 'four', q: '7sus4', rs: 5, o: [null, 0, 2, 0, 3, 0] },
   { fam: 'four', q: 'aug',  rs: 5, o: [null, 0, -1, -2, -2, null] },
-  { fam: 'four', q: 'aug',  rs: 6, o: [0, null, 2, 1, 1, null] },
-  { fam: 'four', q: 'mmaj7', rs: 5, o: [null, 0, 2, 1, 1, 0] },
+  { fam: 'four', q: 'aug',  rs: 6, o: [0, null, 2, 1, 1, null], k: [1, null, 4, 2, 3, null] },
+  { fam: 'four', q: 'mmaj7', rs: 5, o: [null, 0, 2, 1, 1, 0], k: [null, 1, 4, 2, 3, 1] },
   { fam: 'four', q: 'mmaj7', rs: 6, o: [0, null, 1, 0, 0, null] },
   // colour
-  { fam: 'color', q: '9',    rs: 5, o: [null, 0, -1, 0, 0, 0] },
+  { fam: 'color', q: '9',    rs: 5, o: [null, 0, -1, 0, 0, 0], k: [null, 2, 1, 3, 3, 3] },
   { fam: 'color', q: '13',   rs: 6, o: [0, null, 0, 1, 2, null] },
   { fam: 'color', q: '13',   rs: 5, o: [null, 0, null, 0, 2, 2] },
-  { fam: 'color', q: '7b9',  rs: 5, o: [null, 0, -1, 0, -1, null] },
+  { fam: 'color', q: '7b9',  rs: 5, o: [null, 0, -1, 0, -1, null], k: [null, 2, 1, 3, 1, null] },
   { fam: 'color', q: '7b9',  rs: 6, o: [0, null, 0, 1, 0, 1] },
-  { fam: 'color', q: '7#9',  rs: 5, o: [null, 0, -1, 0, 1, null] },
-  { fam: 'color', q: '6/9',  rs: 5, o: [null, 0, -1, -1, 0, 0] },
-  { fam: 'color', q: 'm9',   rs: 5, o: [null, 0, -2, 0, 0, null] },
-  { fam: 'color', q: 'maj9', rs: 5, o: [null, 0, -1, 1, 0, null] },
+  { fam: 'color', q: '7#9',  rs: 5, o: [null, 0, -1, 0, 1, null], k: [null, 2, 1, 3, 4, null] },
+  { fam: 'color', q: '6/9',  rs: 5, o: [null, 0, -1, -1, 0, 0], k: [null, 2, 1, 1, 3, 3] },
+  { fam: 'color', q: 'm9',   rs: 5, o: [null, 0, -2, 0, 0, null], k: [null, 2, 1, 3, 3, null] },
+  { fam: 'color', q: 'maj9', rs: 5, o: [null, 0, -1, 1, 0, null], k: [null, 2, 1, 4, 3, null] },
   { fam: 'color', q: 'm11',  rs: 5, o: [null, 0, 0, 0, 1, 0] },
   { fam: 'color', q: '7#5',  rs: 5, o: [null, 0, null, 0, 2, 1] },
   // open chords: fixed frets for one root (pc), strings 6→1
@@ -130,7 +130,8 @@ export function voicingsFor(sym, fam = 'shell', near = 5) {
 }
 
 // Fretting fingers for a chord shape (6 entries, string 6 → 1; 0 = open, null = not played).
-// Open chords carry their standard fingering; movable shapes go through the solver.
+// Shapes with a `k` carry their standard fingering (all open chords, the awkward movable ones);
+// the rest go through the solver.
 export function fingersFor(frets, shape = null) {
   if (shape?.k) return shape.k;
   const parts = []; frets.forEach((f, i) => { if (f != null) parts.push({ s: 6 - i, f }); });

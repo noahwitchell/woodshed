@@ -347,3 +347,4 @@ svg.cbox text { text-anchor: middle; font-family: inherit; }
 .chord-pad .cp-btns button { background: var(--panel2); border: 0; color: var(--text); border-radius: 8px; padding: 7px 10px; font: inherit; font-size: 13px; font-weight: 700; }
 .chord-pad .cp-btns button:active { background: var(--accent); color: var(--accent-ink); }
 .sg-cell b.txt { font-size: 15px; }
+.prog-select { width: 100%; }

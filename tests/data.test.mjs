@@ -67,3 +67,16 @@ test('every lick and drill can be fingered (pins are playable)', () => {
     });
   }
 });
+
+test('chord fingerings match their shapes', async () => {
+  const { SHAPES } = await import('../js/data/chords.js');
+  for (const s of SHAPES.filter(x => x.k)) {
+    const fr = s.f || s.o;
+    s.k.forEach((k, i) => {
+      const f = fr[i], id = `${s.fam} ${s.q} ${s.root ?? 'rs' + s.rs} string ${6 - i}`;
+      assert.equal(f == null, k == null, id);
+      if (s.f && f === 0) assert.equal(k, 0, id);
+      if (f != null && (s.o || f > 0)) assert.ok(k >= 1 && k <= 4, id);
+    });
+  }
+});
